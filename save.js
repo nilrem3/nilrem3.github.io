@@ -87,16 +87,16 @@ function loaddata(savedata, game){
 	}
 }
 function loadproducer(producersave, multiplier){
-	producer = new producer(producersave.basecost, producersave.baseproduction, producersave.numericpointvalue, multiplier, producersave.tier);
-	producer.amount = producersave.amount;
-	producer.bought = producersave.bought;
-	return producer;
+	loadedproducer = new producer(producersave.basecost, producersave.baseproduction, producersave.numericpointvalue, multiplier, producersave.tier);
+	loadedproducer.amount = producersave.amount;
+	loadedproducer.bought = producersave.bought;
+	return loadedproducer;
 }
 function loadmultiplier(multipliersave){
-	multiplier = new multiplier(multipliersave.basecost, multipliersave.scaling, multipliersave.tier);
-	multiplier.amount = multipliersave.amount;
-	multiplier.bought = multipliersave.bought;
-	return multiplier;
+	loadedmultiplier = new multiplier(multipliersave.basecost, multipliersave.scaling, multipliersave.tier);
+	loadedmultiplier.amount = multipliersave.amount;
+	loadedmultiplier.bought = multipliersave.bought;
+	return loadedmultiplier;
 }
 function save(){
 	window.localStorage.setItem('save', JSON.stringify(new savedata(game.player, game.player.sacrifice)));
