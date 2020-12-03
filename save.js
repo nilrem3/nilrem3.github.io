@@ -26,7 +26,7 @@ class savedata {
 			this.data.multipliers.push(getmultipliersave(player.multipliers[i]));
 		}
 		for(var i = 0; i < sacrifice.maxproducerupgrades.length; i++){
-			this.data.sacrifice.maxproducerupgrades.push(getsacrificeupgradesave(sacrifice.maxproducerupgradess[i]));
+			this.data.sacrifice.maxproducerupgrades.push(getsacrificeupgradesave(sacrifice.maxproducerupgrades[i]));
 		}
 		for(var i = 0; i < sacrifice.maxmultupgrades.length; i++){
 			this.data.sacrifice.maxmultupgrades.push(getsacrificeupgradesave(sacrifice.maxmultupgrades[i]));
