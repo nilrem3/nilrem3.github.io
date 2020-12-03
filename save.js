@@ -43,7 +43,7 @@ function getproducersave(producer){
 		tier: producer.tier
 	}
 }
-function getmultipliersave(multiplier)[
+function getmultipliersave(multiplier){
 	return {
 		basecost: multiplier.basecost,
 		scaling: multiplier.scaling,
