@@ -34,6 +34,7 @@ var game = new Vue({
 setInterval(game.gameLoop, 50)
 game.switchmenu("producertab")
 game.unlockmenu("producersmenubutton")
+game.unlockmenu("optionsmenubutton")
 function format(amount){
 	if(new Decimal(amount).lessThan(new Decimal(1000))){
 		return new Decimal(amount).toPrecision(3).toString();

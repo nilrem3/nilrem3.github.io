@@ -59,7 +59,7 @@ function getsacrificeupgradesave(upgrade){
 		amount: upgrade.amount
 	}
 }
-function load(savedata, game){
+function loaddata(savedata, game){
 	if(savedata.data.saveversion >= 1){
 		game.player.number = savedata.data.number;
 		game.player.tier = savedata.data.tier;
@@ -97,4 +97,10 @@ function loadmultiplier(multipliersave){
 	multiplier.amount = multipliersave.amount;
 	multiplier.bought = multipliersave.bought;
 	return multiplier;
+}
+function save(){
+	window.localStorage.setItem('save', JSON.stringify(new savedata(game.player, game.player.sacrifice)));
+}
+function load(){
+	loaddata(JSON.parse(window.localStorage.getItem('save')), game);
 }

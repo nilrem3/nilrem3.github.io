@@ -11,12 +11,10 @@
 			<div id="numberdisplay" class="displaytext">
 				Your Number is {{ player.formattednumber }} <button onclick="game.addnumber(player.numberperclick)">Increase Number by {{player.numberperclick}}</button>
 			</div>
-			<div id="saveload">
-				
-			</div>
 			<div id="mainmenuselect">
 				<button class="menubutton" id="producersmenubutton" onclick="game.switchmenu('producertab')"><h3>Producers</h3></button>
 				<button class="menubutton" id="sacrificemenubutton" onclick="game.switchmenu('sacrificetab')"><h3>Sacrifice</h3></button>
+				<button class="menubutton" id="optionsmenubutton" onclick="game.switchmenu('optionstab')"><h3>Options</h3></button>
 			</div>
 			<div id="producertab" class="menu">
 				<div id="multsandprods">
@@ -64,6 +62,10 @@
 						</div>
 					</div>
 				</div>
+			</div>
+			<div id="optionstab" class="menu">
+				<button onclick="save()">Save</button>
+				<button onClick="load()">Load</button>
 			</div>
 		</div>	
 	</body>
