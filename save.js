@@ -93,7 +93,7 @@ function loadproducer(producersave, multiplier){
 	return producer;
 }
 function loadmultiplier(multipliersave){
-	multiplier = new multiplier(multipliersave.basecost, multipliersave,scaling, multipliersave.tier);
+	multiplier = new multiplier(multipliersave.basecost, multipliersave.scaling, multipliersave.tier);
 	multiplier.amount = multipliersave.amount;
 	multiplier.bought = multipliersave.bought;
 	return multiplier;
