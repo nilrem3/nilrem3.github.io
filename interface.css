@@ -1,0 +1,28 @@
+body{
+	background-color: black;
+}
+.displaytext{
+	color: white;
+}
+#multsandprods{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+#sacrificemaxupgrades{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+.columndisplay{
+	display: flex;
+	flex-direction: column;
+}
+#mainmenuselect{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+.menubutton{
+	display: none;
+}

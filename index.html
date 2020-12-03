@@ -1,0 +1,83 @@
+<html lang="en">
+	<head>
+	<meta charset="utf-8"></meta>
+	<link rel="stylesheet" href="interface.css">
+	<title>Generic Number Game</title>
+	</head>
+	<body>
+		
+
+		<div id="app">
+			<div id="numberdisplay" class="displaytext">
+				Your Number is {{ player.formattednumber }} <button onclick="game.addnumber(player.numberperclick)">Increase Number by {{player.numberperclick}}</button>
+			</div>
+			<div id="saveload">
+				
+			</div>
+			<div id="mainmenuselect">
+				<button class="menubutton" id="producersmenubutton" onclick="game.switchmenu('producertab')"><h3>Producers</h3></button>
+				<button class="menubutton" id="sacrificemenubutton" onclick="game.switchmenu('sacrificetab')"><h3>Sacrifice</h3></button>
+			</div>
+			<div id="producertab" class="menu">
+				<div id="multsandprods">
+				<div id="multipliers" class="columndisplay">
+					<div class="multiplierdisplay" v-for="multiplier in player.multipliers"> 
+						<multiplierdisplay :multiplier="multiplier"/>
+					</div> 
+				</div>
+				<div id="producers" class="columndisplay">
+					<div class="producerdisplay" v-for="producer in player.producers"> 
+						<producerdisplay :producer="producer"/>
+					</div> 
+				</div>
+				</div>
+				<div id="tierupstuff">
+					<button onclick="player.tierUp()">Tier Up to gain a new Producer! Cost: {{ format(player.tierUpCost)}}</button>
+				</div>
+			</div>
+			<div id="sacrificetab" class="menu">
+				<span class="displaytext" id="NPdisplay">You have {{format(player.sacrifice.numericpoints)}} Numeric Points</span>
+				<button id="sacrificebutton" onclick="player.sacrifice.sacrifice()">Sacrifice Your Producers and Multipliers to Gain {{ player.sacrifice.numericpointsonsacrifice }} Numeric Points!</button>
+				<div id="sacrificerepeatableupgrades">
+					<div>
+					<sacrificeupgradedisplay :upgrade="player.sacrifice.repeatableclickupgrade"/>
+					</div>
+					<div>
+					<sacrificeupgradedisplay :upgrade="player.sacrifice.repeatablestartingnumberupgrade"/>
+					</div>
+					<div>
+					<sacrificeupgradedisplay :upgrade="player.sacrifice.repeatablenumbermultupgrade"/>
+					</div>
+					<div>
+					<sacrificeupgradedisplay :upgrade="player.sacrifice.repeatablenpmultupgrade"/>
+					</div>
+				</div>
+				<div id="sacrificemaxupgrades">
+					<div class="columndisplay">
+						<div v-for="upgrade in player.sacrifice.maxproducerupgrades">
+							<sacrificeupgradedisplay :upgrade="upgrade"/>
+						</div>
+					</div>
+					<div class="columndisplay">
+						<div v-for="upgrade in player.sacrifice.maxmultupgrades">
+							<sacrificeupgradedisplay :upgrade="upgrade"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+	<script src="http://cdn.rawgit.com/erosson/swarm-numberformat/v0.4.0/dist/swarm-numberformat.min.js"></script>
+	<script src="libraries/break_infinity.js"></script>
+	<script src="multiplier.js"></script>
+	<script src="producer.js"></script>
+	<script src="components/producer.js"></script>
+	<script src="components/multiplier.js"></script>
+	<script src="sacrificeupgrade.js"></script>
+	<script src="sacrifice.js"></script>
+	<script src="player.js"></script>
+	<script src="loop.js"></script>
+	<script src="main.js"></script>
+
+</html>
