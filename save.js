@@ -90,7 +90,7 @@ function loaddata(savedata, game){
 	}
 }
 function loadproducer(producersave, multiplier){
-	loadedproducer = createProducer(producersave.tier);
+	loadedproducer = createProducer(producersave.tier, multiplier);
 	loadedproducer.amount = producersave.amount;
 	loadedproducer.bought = producersave.bought;
 	return loadedproducer;
