@@ -27,7 +27,7 @@ class producer {
 	
 	get production(){
 		num = this.baseproduction * this.multiplier.value;
-		num = num.times(Decimal.pow(1.5, player.sacrifice.repeatablenumbermultupgrade.amount));
+		num = Decimal.mul(Decimal.pow(1.5, player.sacrifice.repeatablenumbermultupgrade.amount), num);
 		return num;
 	}
 	get productionPerSecond(){
