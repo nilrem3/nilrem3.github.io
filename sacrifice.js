@@ -8,7 +8,7 @@ var sacrifice = {
 	repeatablenumbermultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.5 number from all producers"),
 	repeatablenpmultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.2 NP gain"),
 	generatemaxproducerupgrade(tier){
-		return new sacrificeupgrade(Decimal.mul(10, Decimal.pow(2, tier - 1)), new Decimal(2), 10, "Increase the maximum of Producer " + tier);
+		return new sacrificeupgrade(Decimal.mul(10, Decimal.pow(2, tier - 1)), new Decimal(1.6), 10, "Increase the maximum of Producer " + tier);
 	},
 	generatemaxmultiplierupgrade(tier){
 		return new sacrificeupgrade(Decimal.mul(40, Decimal.pow(2, tier - 1)), new Decimal(5), 3, "Increase the maximum of Multiplier " + tier);
