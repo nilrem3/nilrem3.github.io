@@ -3,9 +3,9 @@ var sacrifice = {
 	numericpoints: new Decimal(0),
 	maxmultupgrades: [],
 	maxproducerupgrades: [],
-	repeatableclickupgrade: new sacrificeupgrade(new Decimal(10), new Decimal(5), null, "x2 Click Power"),
+	repeatableclickupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x2 Click Power"),
 	repeatablestartingnumberupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "+5 Starting Number"),
-	repeatablenumbermultupgrade: new sacrificeupgrade(new Decimal(10), new Decimal(5), null, "x1.5 number from all producers"),
+	repeatablenumbermultupgrade: new sacrificeupgrade(new Decimal(t0), new Decimal(5), null, "x1.5 number from all producers"),
 	repeatablenpmultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.2 NP gain"),
 	generatemaxproducerupgrade(tier){
 		return new sacrificeupgrade(Decimal.mul(10, Decimal.pow(2, tier - 1)), new Decimal(2), 10, "Increase the maximum of Producer " + tier);
