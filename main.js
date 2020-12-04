@@ -5,7 +5,7 @@ var game = new Vue({
 	},
 	methods:{
 		addnumber(num){
-			num = num.times(Decimal.pow(1.5, player.sacrifice.repeatablenumbermultupgrade.amount)); 
+			
 			player.number = Decimal.plus(player.number, num);
 		},
 		gameLoop(){
