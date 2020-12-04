@@ -41,6 +41,6 @@ var sacrifice = {
 	},
 	addNumericPoints(points){
 		points = points.times(Decimal.pow(new Decimal(1.2), this.repeatablenpmultupgrade.amount));
-		this.numericpoints = this.numericpoints.plus(points);
+		this.numericpoints = Decimal.plus(this.numericpoints, points);
 	}
 }

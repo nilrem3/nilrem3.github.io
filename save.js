@@ -72,6 +72,9 @@ function loaddata(savedata, game){
 		}
 		game.player.lastupdate = savedata.data.lastupdate;
 		game.player.sacrifice.unlocked = savedata.data.sacrifice.unlocked;
+		if(sacrifice.unlocked){
+			game.unlockmenu("sacrificemenubutton");
+		}
 		game.player.sacrifice.numericpoints = savedata.data.sacrifice.numericpoints;
 		game.player.sacrifice.addmaxupgrades(game.player.highesttier);
 		for(var i = 0; i < savedata.data.sacrifice.maxmultupgrades.length; i++){
