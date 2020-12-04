@@ -48,6 +48,13 @@ var player = {
 			this.multipliers.push(createMultiplier(i + 1));
 			this.producers.push(createProducer(i + 1, this.multipliers[i]));
 		}
+	},
+	get tierUpbuttontext(){
+		if(this.tier < this.maxtier){
+			return "Tier Up to gain a new Producer! Cost: " + format(player.tierUpCost);
+		}else{
+			return "Cannot Tier up past " + player.maxtier + ". (yet!)";
+		}	
 	}
 	
 }

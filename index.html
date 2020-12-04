@@ -30,7 +30,7 @@
 				</div>
 				</div>
 				<div id="tierupstuff">
-					<button onclick="player.tierUp()">Tier Up to gain a new Producer! Cost: {{ format(player.tierUpCost)}}</button>
+					<button onclick="player.tierUp()">{{player.tierUpbuttontext}}</button>
 				</div>
 			</div>
 			<div id="sacrificetab" class="menu">
@@ -67,12 +67,16 @@
 				<button onclick="save()">Save</button>
 				<button onClick="load()">Load</button>
 				<div id="patch notes"  class="displaytext">
-					<h2>patch notes</h2><b>
-					<h3>Version 0.1.1</h3><b>
-					-increased tier required for sacrifice by 1<b>
-					-added patch notes<b>
-					-made sacrifice button show if you can sacrifice or not<b>
-					<h3>Version 0.1.0</h3><b>
+					<h2>patch notes</h2>
+					<h3>Version 0.1.1-1</h3>
+					-tier up button now says if you are at the max tier<br>
+					-loading multipliers now does not load their previous costs and stuff, so that I can change their costs without people resetting the game<br>
+					-fixed formatting of patch notes (x2)<br>
+					<h3>Version 0.1.1</h3>
+					-increased tier required for sacrifice by 1<br>
+					-added patch notes<br>
+					-made sacrifice button show if you can sacrifice or not<br>
+					<h3>Version 0.1.0</h3>
 					-release<b>
 				</div>
 			</div>
