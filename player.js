@@ -3,7 +3,7 @@ var player = {
 	producers: [],
 	tier: 0,
 	highesttier: 0,
-	maxtier: 4,
+	maxtier: 5,
 	multipliers: [],
 	lastupdate: Date.now(),
 	sacrifice: sacrifice,

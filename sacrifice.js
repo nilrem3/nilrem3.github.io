@@ -30,7 +30,7 @@ var sacrifice = {
 		return value;
 	},
 	get canSacrifice(){
-		return (game.player.tier >= 4 && this.numericpointsonsacrifice.gte(70));
+		return (player.tier >= 5 && this.numericpointsonsacrifice.gte(70));
 	},
 	sacrifice(){
 		if(this.canSacrifice){
@@ -42,5 +42,9 @@ var sacrifice = {
 	addNumericPoints(points){
 		points = points.times(Decimal.pow(new Decimal(1.2), this.repeatablenpmultupgrade.amount));
 		this.numericpoints = Decimal.plus(this.numericpoints, points);
+	},
+	get sacrificebuttontext(){
+		if(this.canSacrifice) return "Sacrifice Your Producers and Multipliers to Gain " + this.numericpointsonsacrifice + " Numeric Points!";
+		else return "Cannot Sacrifice Below tier 5 or for less than 70 NP";
 	}
 }

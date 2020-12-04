@@ -39,5 +39,5 @@ class multiplier{
 }
 
 function createMultiplier(tier){
-	return new multiplier(Decimal.pow(10, tier + 1), Decimal.pow(2, tier), tier);
+	return new multiplier(Decimal.pow(10, tier + 1), Decimal.plus(1, tier), tier);
 }
