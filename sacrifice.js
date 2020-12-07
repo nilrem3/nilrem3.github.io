@@ -1,12 +1,13 @@
 var sacrifice = {
 	unlocked: false,
 	numericpoints: new Decimal(0),
+	timessacrificed: 0,
 	maxmultupgrades: [],
 	maxproducerupgrades: [],
-	repeatableclickupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x2 Click Power"),
+	repeatableclickupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.5 Click Power"),
 	repeatablestartingnumberupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "+5 Starting Number"),
-	repeatablenumbermultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.5 number from all producers"),
-	repeatablenpmultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.2 NP gain"),
+	repeatablenumbermultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.2 number from all producers"),
+	repeatablenpmultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.1 NP from sacrifice"),
 	generatemaxproducerupgrade(tier){
 		return new sacrificeupgrade(Decimal.mul(10, Decimal.pow(2, tier - 1)), new Decimal(1.6), 10, "Increase the maximum of Producer " + tier);
 	},
@@ -27,6 +28,7 @@ var sacrifice = {
 		for(i = 0; i < player.producers.length; i++){
 			value = Decimal.plus(new Decimal(player.producers[i].numericpointsonsacrifice), value);
 		}
+		value = value.times(Decimal.pow(1.1, sacrifice.repeatablenpmultupgrade.amount));
 		return value;
 	},
 	get canSacrifice(){
@@ -34,13 +36,14 @@ var sacrifice = {
 	},
 	sacrifice(){
 		if(this.canSacrifice){
+			this.timessacrificed += 1;
 			this.addNumericPoints(this.numericpointsonsacrifice);
 			player.tier = 0;
 			player.resetEverythingTierUpDoes();
 		}
 	},
 	addNumericPoints(points){
-		points = points.times(Decimal.pow(new Decimal(1.2), this.repeatablenpmultupgrade.amount));
+		points = points;
 		this.numericpoints = Decimal.plus(this.numericpoints, points);
 	},
 	get sacrificebuttontext(){

@@ -26,3 +26,15 @@ body{
 .menubutton{
 	display: none;
 }
+.achievementdisplay{
+	padding: 10px;
+	padding-bottom: 20px;
+	border: solid 3px;
+	border-color: #555555;
+}
+.completeachievement{
+	border-color: #00ff00;
+}
+.invisibleachievement{
+	display: none;
+}

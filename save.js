@@ -1,13 +1,14 @@
 class savedata {
 	constructor(player, sacrifice){
 		this.data = {
-			saveversion: 1,
+			saveversion: 2,
 			number: player.number,
 			tier: player.tier,
 			highesttier: player.highesttier,
 			producers: [],
 			multipliers: [],
 			lastupdate: player.lastupdate,
+			clicks: player.clicks,
 			sacrifice: {
 				unlocked: sacrifice.unlocked,
 				numericpoints: sacrifice.numericpoints,
@@ -16,9 +17,13 @@ class savedata {
 				repeatableclickupgrade: getsacrificeupgradesave(sacrifice.repeatableclickupgrade),
 				repeatablestartingnumberupgrade: getsacrificeupgradesave(sacrifice.repeatablestartingnumberupgrade),
 				repeatablenumbermultupgrade: getsacrificeupgradesave(sacrifice.repeatablenumbermultupgrade),
-				repeatablenpmultupgrade: getsacrificeupgradesave(sacrifice.repeatablenpmultupgrade)
+				repeatablenpmultupgrade: getsacrificeupgradesave(sacrifice.repeatablenpmultupgrade),
+				timessacrificed: sacrifice.timessacrificed
+			},
+			achievementshandler: {
+				achievements: []
 			}
-		}
+		};
 		for(var i = 0; i < player.producers.length; i++){
 			this.data.producers.push(getproducersave(player.producers[i]));
 		}
@@ -30,6 +35,9 @@ class savedata {
 		}
 		for(var i = 0; i < sacrifice.maxmultupgrades.length; i++){
 			this.data.sacrifice.maxmultupgrades.push(getsacrificeupgradesave(sacrifice.maxmultupgrades[i]));
+		}
+		for(var i = 0; i < player.achievementshandler.achievements.length; i++){
+			this.data.achievementshandler.achievements.push(player.achievementshandler.achievements[i].unlocked);
 		}
 	}
 }
@@ -76,6 +84,7 @@ function loaddata(savedata, game){
 			game.unlockmenu("sacrificemenubutton");
 		}
 		game.player.sacrifice.numericpoints = savedata.data.sacrifice.numericpoints;
+		game.player.sacrifice.sacrificed = savedata.data.sacrifice.sacrificed;
 		game.player.sacrifice.addmaxupgrades(game.player.highesttier);
 		for(var i = 0; i < savedata.data.sacrifice.maxmultupgrades.length; i++){
 			game.player.sacrifice.maxmultupgrades[i].amount = savedata.data.sacrifice.maxmultupgrades[i].amount;
@@ -87,6 +96,13 @@ function loaddata(savedata, game){
 		game.player.sacrifice.repeatablestartingnumberupgrade.amount = savedata.data.sacrifice.repeatablestartingnumberupgrade.amount;
 		game.player.sacrifice.repeatablenumbermultupgrade.amount = savedata.data.sacrifice.repeatablenumbermultupgrade.amount;
 		game.player.sacrifice.repeatablenpmultupgrade.amount = savedata.data.sacrifice.repeatablenpmultupgrade.amount;
+	}
+	if(savedata.data.saveversion >= 2){//achievemend update
+		game.player.clicks = savedata.data.clicks;
+		game.player.sacrifice.timessacrificed = savedata.data.sacrifice.timessacrificed;
+		for(var i = 0; i < savedata.data.achievementshandler.achievements.length; i++){
+			game.player.achievementshandler.achievements[i].unlocked = savedata.data.achievementshandler.achievements[i];
+		}
 	}
 }
 function loadproducer(producersave, multiplier){

@@ -20,7 +20,6 @@ class sacrificeupgrade {
 		sacrifice.numericpoints -= this.cost;
 		this.amount += 1;
 	}
-	
 }
 Vue.component('sacrificeupgradedisplay', {
 	props: {

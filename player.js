@@ -4,11 +4,14 @@ var player = {
 	tier: 0,
 	highesttier: 0,
 	maxtier: 5,
+	clicks: 0,
 	multipliers: [],
 	lastupdate: Date.now(),
 	sacrifice: sacrifice,
+	achievementshandler: achievementshandler,
 	get numberperclick(){
-		num =  (new Decimal(1)).times(Decimal.pow(2, sacrifice.repeatableclickupgrade.amount));
+		num =  (new Decimal(1)).times(Decimal.pow(1.5, sacrifice.repeatableclickupgrade.amount));
+		num = Decimal.mul(num, this.achievementshandler.clickPowerMult);
 		return num;
 	},
 	get tierUpCost(){
@@ -39,7 +42,7 @@ var player = {
 	resetEverythingTierUpDoes(){
 		this.number = new Decimal(0);
 		//starting number
-		this.number = this.number.plus(new Decimal(10).times(sacrifice.repeatablestartingnumberupgrade.amount))
+		this.number = this.number.plus(new Decimal(5).times(sacrifice.repeatablestartingnumberupgrade.amount))
 		//set up producers and multipliers
 		this.producers = [];
 		this.multipliers = [];
@@ -55,6 +58,13 @@ var player = {
 		}else{
 			return "Cannot Tier up past " + player.maxtier + ". (yet!)";
 		}	
+	},
+	get numberPerSecond(){
+		ret = new Decimal(0);
+		for(var i = 0; i < this.producers.length; i++){
+			ret = Decimal.plus(this.producers[i].productionPerSecond, ret);
+		}
+		return ret;
 	}
 	
 }

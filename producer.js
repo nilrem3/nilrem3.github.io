@@ -27,11 +27,11 @@ class producer {
 	
 	get production(){
 		num = this.baseproduction * this.multiplier.value;
-		num = Decimal.mul(Decimal.pow(1.5, player.sacrifice.repeatablenumbermultupgrade.amount), num);
+		num = Decimal.mul(Decimal.pow(1.2, player.sacrifice.repeatablenumbermultupgrade.amount), num);
 		return num;
 	}
 	get productionPerSecond(){
-		return this.production * this.amount;
+		return Decimal.mul(this.production, this.amount);
 	}
 	get buttontext(){
 		if(this.amount < this.maxnum) return "Buy 1: " + format(this.cost);
@@ -41,11 +41,12 @@ class producer {
 		return Decimal.mul(this.amount, this.numericpointvalue);
 	}
 	get maxnum(){
-		if(player.sacrifice.maxproducerupgrades.length < this.tier){
-			return this._maxnum;
-		}else{
-			return this._maxnum + player.sacrifice.maxproducerupgrades[this.tier - 1].amount;
+		num = this._maxnum;
+		if(!player.sacrifice.maxproducerupgrades.length < this.tier){
+			num += player.sacrifice.maxproducerupgrades[this.tier - 1].amount;
 		}
+		num += player.achievementshandler.globalMaximumProducerBonus;
+		return num;
 	}
 }
 

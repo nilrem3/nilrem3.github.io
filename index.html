@@ -9,12 +9,13 @@
 
 		<div id="app">
 			<div id="numberdisplay" class="displaytext">
-				Your Number is {{ player.formattednumber }} <button onclick="game.addnumber(player.numberperclick)">Increase Number by {{player.numberperclick}}</button>
+				Your Number is {{ player.formattednumber }} (+{{format(player.numberPerSecond)}}/s)<button onclick="game.click()">Increase Number by {{format(player.numberperclick)}}</button>
 			</div>
 			<div id="mainmenuselect">
 				<button class="menubutton" id="producersmenubutton" onclick="game.switchmenu('producertab')"><h3>Producers</h3></button>
 				<button class="menubutton" id="sacrificemenubutton" onclick="game.switchmenu('sacrificetab')"><h3>Sacrifice</h3></button>
 				<button class="menubutton" id="optionsmenubutton" onclick="game.switchmenu('optionstab')"><h3>Options</h3></button>
+				<button class="menubutton" id="achievementsmenubutton" onclick="game.switchmenu('achievementstab')"><h3>Achievements</h3></button>
 			</div>
 			<div id="producertab" class="menu">
 				<div id="multsandprods">
@@ -68,6 +69,11 @@
 				<button onClick="load()">Load</button>
 				<div id="patch notes"  class="displaytext">
 					<h2>patch notes</h2>
+					<h3>Version 0.2.0</h3>
+					-fixed incorrect starting number from a certain sacrifice upgrade<br>
+					-rebalanced some NP upgrades in preperation for achievents<br>
+					-added 11 basic achievements, more coming soon!<br>
+					-added a total number/second display<br>
 					<h3>emergency hotfix 12/4 9:43 AM</h3>
 					-fixed producers not existing in loaded saves.  don't worry, they're still in the saves.  they just didn't load correctly<br>
 					<h3>Version 0.1.1-1</h3>
@@ -82,6 +88,11 @@
 					-release<b>
 				</div>
 			</div>
+			<div id="achievementstab" class="menu">
+				<div v-for="achievement in player.achievementshandler.achievements">
+					<achievementdisplay :achievement="achievement"/>
+				</div>
+			</div>
 		</div>	
 	</body>
 	<script src="libraries/vue.js"></script>
@@ -93,6 +104,8 @@
 	<script src="components/multiplier.js"></script>
 	<script src="sacrificeupgrade.js"></script>
 	<script src="sacrifice.js"></script>
+	<script src='achievement.js'></script>
+	<script src="components/achievement.js"></script>
 	<script src="player.js"></script>
 	<script src="loop.js"></script>
 	<script src="main.js"></script>
