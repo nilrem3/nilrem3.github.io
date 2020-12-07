@@ -46,5 +46,23 @@ function gameLoop(that) {
 	if(that.player.sacrifice.timessacrificed >= 1){
 		that.player.achievementshandler.completeAchievement(10);
 	}
+	if(that.player.number.gte(new Decimal("1e4"))){
+		that.player.achievementshandler.completeAchievement(11);
+	}
+	if(that.player.number.gte(new Decimal("1e6"))){
+		that.player.achievementshandler.completeAchievement(12);
+	}
+	if(that.player.number.gte(new Decimal("1e8"))){
+		that.player.achievementshandler.completeAchievement(13);
+	}
+	if(that.player.clicks >= 5000){
+		that.player.achievementshandler.completeAchievement(14);
+	}
+	if(that.player.clicks >= 10000){
+		that.player.achievementshandler.completeAchievement(15);
+	}
+	if(that.player.clicks >= 100000){
+		that.player.achievementshandler.completeAchievement(16);
+	}
 	
 }

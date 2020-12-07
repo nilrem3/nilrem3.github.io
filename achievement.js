@@ -49,10 +49,13 @@ var achievementshandler = {
 	new achievement("Newerer Beginning", "Tier Up Thrice!", "+1 starting number", 1),
 	new achievement("Newererer Beginning", "Tier Up Quice! (was that an undertale reference?)", "+1 starting number", 1),
 	new achievement("Final Tier . . . or is it?", "Tier Up 5 times!", "+1 starting number", 1),
-	new achievement("Back to Square 1", "Sacrifice once!", "+1 maximum on all producers", 2)/*,
-	new achivement("Large Number", "Have 1e4 number", "1.1x Number from producers", 1),
+	new achievement("Back to Square 1", "Sacrifice once!", "+1 maximum on all producers", 2), //10
+	new achievement("Large Number", "Have 1e4 number", "1.1x Number from producers", 1),
 	new achievement("Larger Number", "Have 1e6 number", "1.1x Number from producers", 1),
-	new achievement("Really Big Number", "Have 1e8 number", "1.1x Number from producers", 2).
+	new achievement("Really Big Number", "Have 1e8 number", "1.1x Number from producers", 2),
+	new achievement("Harderererer Worker", "Click 5000 times", "1.05x click power", 3),
+	new achievement("Hardererererer Worker", "Click 10000 times.  I wonder if I'll ever make more creative names for these?", "1.05x click power", 3),
+	new achievement("Harderererererer Worker", "Click 100000 times.  I don't know why this achievement exisits, it really shouldn't.", "1.05x click power", 4)/*,
 	new achievement("Perfect Sacrifice", "Sacrifice when all of your producers are maxxed", "+10 base NP when sacrificing", 2),
 	new achievement("Maximum Multiplication", "Get 6 of each multiplier 1-5", "multipliers are now x1.6 per level", 3),
 	new achievement("Minimum Multiplication", "Sacrifice without having any multipliers, and having at least 1 producer 5.", "you gain 3 base number per second", 3),
@@ -100,6 +103,15 @@ var achievementshandler = {
 		if(this.achievements[4].unlocked){
 			mult = Decimal.mul(mult, new Decimal(1.05));
 		}
+		if(this.achievements[14].unlocked){
+			mult = Decimal.mul(mult, new Decimal(1.05));
+		}
+		if(this.achievements[15].unlocked){
+			mult = Decimal.mul(mult, new Decimal(1.05));
+		}
+		if(this.achievements[16].unlocked){
+			mult = Decimal.mul(mult, new Decimal(1.05));
+		}
 		return mult;
 	},
 	get startingNumberBonus(){
@@ -127,5 +139,18 @@ var achievementshandler = {
 			bonus += 1;
 		}
 		return bonus;
+	},
+	get numberFromProducerMult(){
+		mult = new Decimal(1);
+		if(this.achievements[11].unlocked){
+			mult = mult.mul(new Decimal(1.1));
+		}
+		if(this.achievements[12].unlocked){
+			mult = mult.mul(new Decimal(1.1));
+		}
+		if(this.achievements[13].unlocked){
+			mult = mult.mul(new Decimal(1.1));
+		}
+		return mult;
 	}
 }

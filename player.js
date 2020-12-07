@@ -43,6 +43,7 @@ var player = {
 		this.number = new Decimal(0);
 		//starting number
 		this.number = this.number.plus(new Decimal(5).times(sacrifice.repeatablestartingnumberupgrade.amount))
+		this.number = this.number.plus(this.achievementshandler.startingNumberBonus);
 		//set up producers and multipliers
 		this.producers = [];
 		this.multipliers = [];
