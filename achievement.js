@@ -50,12 +50,13 @@ var achievementshandler = {
 	new achievement("Newererer Beginning", "Tier Up Quice! (was that an undertale reference?)", "+1 starting number", 1),
 	new achievement("Final Tier . . . or is it?", "Tier Up 5 times!", "+1 starting number", 1),
 	new achievement("Back to Square 1", "Sacrifice once!", "+1 maximum on all producers", 2)/*,
+	new achivement("Large Number", "Have 1e4 number", "1.1x Number from producers", 1),
+	new achievement("Larger Number", "Have 1e6 number", "1.1x Number from producers", 1),
+	new achievement("Really Big Number", "Have 1e8 number", "1.1x Number from producers", 2).
 	new achievement("Perfect Sacrifice", "Sacrifice when all of your producers are maxxed", "+10 base NP when sacrificing", 2),
 	new achievement("Maximum Multiplication", "Get 6 of each multiplier 1-5", "multipliers are now x1.6 per level", 3),
 	new achievement("Minimum Multiplication", "Sacrifice without having any multipliers, and having at least 1 producer 5.", "you gain 3 base number per second", 3),
 	new achievement("Overloaded", "Have 6 of each multiplier and 20 of each producer 1-5", "UNLOCK A NEW FEATURE, and also gain 0.1 NP per second", 3),
-	new achievement("1 Million Number", "get to 1e6 number", "1.05x number from all sources", 1),
-	new achievement("1 Billion Number", "get to 1e9 number", "1.05x number from all sources", 2),
 	new achievement("Meaningless Wealth", "Have at least 1e5 number in tier 2", "1.1x number in tiers 4 and below", 3),
 	new achievement("Useless", "Sacrifice without having any producer 1", "Producer 1 produces twice as much number and is worth 1.2x as much NP", 3),
 	new achievement("Organized", "Have 1 of producer 1, 2 of producer 2, 3 of producer 3, etc. up to 5", "Producers that are maxxed produce 1.05x more number", 3)
@@ -66,7 +67,7 @@ var achievementshandler = {
 		if(player.tier >= 5){
 			this.makevisible(2);
 		}
-		if(player.sacrifice.sacrificed == true){
+		if(player.sacrifice.timessacrificed > 0){
 			this.makevisible(3);
 		}
 	},
