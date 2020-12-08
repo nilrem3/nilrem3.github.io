@@ -1,15 +1,16 @@
 var sacrifice = {
 	unlocked: false,
 	numericpoints: new Decimal(0),
+	totalnpgained: new Decimal(0),
 	timessacrificed: 0,
 	maxmultupgrades: [],
 	maxproducerupgrades: [],
-	repeatableclickupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.5 Click Power"),
+	repeatableclickupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x2 Click Power"),
 	repeatablestartingnumberupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "+5 Starting Number"),
-	repeatablenumbermultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.2 number from all producers"),
-	repeatablenpmultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.1 NP from sacrifice"),
+	repeatablenumbermultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.5 number from all producers"),
+	repeatablenpmultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.2 NP from sacrifice"),
 	generatemaxproducerupgrade(tier){
-		return new sacrificeupgrade(Decimal.mul(10, Decimal.pow(2, tier - 1)), new Decimal(1.6), 10, "Increase the maximum of Producer " + tier);
+		return new sacrificeupgrade(Decimal.mul(10, Decimal.pow(2, tier - 1)), new Decimal(1.6), 9, "Increase the maximum of Producer " + tier);//9 instead of 10 to account for the achievement that gives +1
 	},
 	generatemaxmultiplierupgrade(tier){
 		return new sacrificeupgrade(Decimal.mul(40, Decimal.pow(2, tier - 1)), new Decimal(5), 3, "Increase the maximum of Multiplier " + tier);
@@ -28,7 +29,9 @@ var sacrifice = {
 		for(i = 0; i < player.producers.length; i++){
 			value = Decimal.plus(new Decimal(player.producers[i].numericpointsonsacrifice), value);
 		}
-		value = value.times(Decimal.pow(1.1, sacrifice.repeatablenpmultupgrade.amount));
+		value = value.plus(player.achievementshandler.baseNpBonus);
+		value = value.mul(player.achievementshandler.npMult);
+		value = value.times(Decimal.pow(1.2, sacrifice.repeatablenpmultupgrade.amount));
 		return value;
 	},
 	get canSacrifice(){
@@ -36,6 +39,18 @@ var sacrifice = {
 	},
 	sacrifice(){
 		if(this.canSacrifice){
+			if(this.numericpointsonsacrifice.gte(new Decimal(500))){
+				player.acheivementshandler.completeAchievement(17);
+			}
+			if(this.numericpointsonsacrifice.gte(new Decimal(1000))){
+				player.acheivementshandler.completeAchievement(18);
+			}
+			if(player.producers[0].amount == 20 && player.producers[1].amount == 20 && player.producers[2].amount == 20 && player.producers[3].amount == 20 && player.producers[4].amount == 20){
+				player.achievementshandler.completeAchievement(23);
+			}
+			if(player.multipliers[0].amount == 0 && player.multipliers[1].amount == 0 && player.multipliers[2].amount == 0 && player.multipliers[3].amount == 0 && player.multipliers[4].amount == 0 && player.producers[4].amount >= 1){
+				player.achievementshandler.completeAchievement(25);
+			}
 			this.timessacrificed += 1;
 			this.addNumericPoints(this.numericpointsonsacrifice);
 			player.tier = 0;
@@ -45,6 +60,7 @@ var sacrifice = {
 	addNumericPoints(points){
 		points = points;
 		this.numericpoints = Decimal.plus(this.numericpoints, points);
+		this.totalnpgained = Decimal.plus(this.totalnpgained, points);
 	},
 	get sacrificebuttontext(){
 		if(this.canSacrifice) return "Sacrifice Your Producers and Multipliers to Gain " + this.numericpointsonsacrifice + " Numeric Points!";

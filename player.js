@@ -1,5 +1,6 @@
 var player = {
 	number: new Decimal(0),
+	totalnumberproduced: new Decimal(0),
 	producers: [],
 	tier: 0,
 	highesttier: 0,
@@ -9,8 +10,9 @@ var player = {
 	lastupdate: Date.now(),
 	sacrifice: sacrifice,
 	achievementshandler: achievementshandler,
+	statistics: statistics,
 	get numberperclick(){
-		num =  (new Decimal(1)).times(Decimal.pow(1.5, sacrifice.repeatableclickupgrade.amount));
+		num =  (new Decimal(1)).times(Decimal.pow(2, sacrifice.repeatableclickupgrade.amount));
 		num = Decimal.mul(num, this.achievementshandler.clickPowerMult);
 		return num;
 	},
@@ -65,6 +67,7 @@ var player = {
 		for(var i = 0; i < this.producers.length; i++){
 			ret = Decimal.plus(this.producers[i].productionPerSecond, ret);
 		}
+		ret = ret.mul(player.achievementshandler.globalNumberMult);
 		return ret;
 	}
 	

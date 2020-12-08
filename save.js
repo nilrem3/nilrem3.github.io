@@ -1,8 +1,9 @@
 class savedata {
 	constructor(player, sacrifice){
 		this.data = {
-			saveversion: 2,
+			saveversion: 3,
 			number: player.number,
+			totalnumberproduced: player.totalnumberproduced,
 			tier: player.tier,
 			highesttier: player.highesttier,
 			producers: [],
@@ -18,10 +19,12 @@ class savedata {
 				repeatablestartingnumberupgrade: getsacrificeupgradesave(sacrifice.repeatablestartingnumberupgrade),
 				repeatablenumbermultupgrade: getsacrificeupgradesave(sacrifice.repeatablenumbermultupgrade),
 				repeatablenpmultupgrade: getsacrificeupgradesave(sacrifice.repeatablenpmultupgrade),
-				timessacrificed: sacrifice.timessacrificed
+				timessacrificed: sacrifice.timessacrificed,
+				totalnpgained: sacrifice.totalnpgained
 			},
 			achievementshandler: {
-				achievements: []
+				achievements: [],
+				achievementvisibility: []
 			}
 		};
 		for(var i = 0; i < player.producers.length; i++){
@@ -38,6 +41,9 @@ class savedata {
 		}
 		for(var i = 0; i < player.achievementshandler.achievements.length; i++){
 			this.data.achievementshandler.achievements.push(player.achievementshandler.achievements[i].unlocked);
+		}
+		for(var i = 0; i < player.achievementshandler.achievements.length; i++){
+			this.data.achievementshandler.achievementvisibility.push(player.achievementshandler.achievements[i].visible);
 		}
 	}
 }
@@ -97,12 +103,19 @@ function loaddata(savedata, game){
 		game.player.sacrifice.repeatablenumbermultupgrade.amount = savedata.data.sacrifice.repeatablenumbermultupgrade.amount;
 		game.player.sacrifice.repeatablenpmultupgrade.amount = savedata.data.sacrifice.repeatablenpmultupgrade.amount;
 	}
-	if(savedata.data.saveversion >= 2){//achievemend update
+	if(savedata.data.saveversion >= 2){//achievement update
 		game.player.clicks = savedata.data.clicks;
 		game.player.sacrifice.timessacrificed = savedata.data.sacrifice.timessacrificed;
 		for(var i = 0; i < savedata.data.achievementshandler.achievements.length; i++){
 			game.player.achievementshandler.achievements[i].unlocked = savedata.data.achievementshandler.achievements[i];
 		}
+	}
+	if(savedata.data.saveversion >= 3){
+		for(var i = 0; i < savedata.data.achievementshandler.achievementvisibility.length; i++){
+			game.player.achievementshandler.achievements[i].visible = savedata.data.achievementshandler.achievementvisibility[i];
+		}
+		game.player.totalnumberproduced = new Decimal(savedata.data.totalnumberproduced);
+		game.player.sacrifice.totalnpgained = new Decimal(savedata.data.sacrifice.totalnpgained);
 	}
 }
 function loadproducer(producersave, multiplier){

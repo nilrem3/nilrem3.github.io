@@ -2,7 +2,7 @@
 	<head>
 	<meta charset="utf-8"></meta>
 	<link rel="stylesheet" href="interface.css">
-	<title>Generic Number Game</title>
+	<title>Number Game</title>
 	</head>
 	<body>
 		
@@ -15,7 +15,7 @@
 				<button class="menubutton" id="producersmenubutton" onclick="game.switchmenu('producertab')"><h3>Producers</h3></button>
 				<button class="menubutton" id="sacrificemenubutton" onclick="game.switchmenu('sacrificetab')"><h3>Sacrifice</h3></button>
 				<button class="menubutton" id="optionsmenubutton" onclick="game.switchmenu('optionstab')"><h3>Options</h3></button>
-				<button class="menubutton" id="achievementsmenubutton" onclick="game.switchmenu('achievementstab')"><h3>Achievements</h3></button>
+				<button class="menubutton" id="statisticsmenubutton" onclick="game.switchmenu('statisticstab')"><h3>Statistics</h3></button>
 			</div>
 			<div id="producertab" class="menu">
 				<div id="multsandprods">
@@ -69,8 +69,13 @@
 				<button onClick="load()">Load</button>
 				<div id="patch notes"  class="displaytext">
 					<h2>patch notes</h2>
+					<h3>Version 0.2.2</h3>
+					-un-nerfed some sacrifice upgrades<br>
+					-added a bunch more achievements (there are now 40 total)<br>
+					-invisible achievements now show as "????????" rather than simply not existing<br>
+					-added statistics, including an overall rating you can use to compete with your friends!</br>
 					<h3>Version 0.2.1</h3>
-					-fixed achievements not actually giving starting number
+					-fixed achievements not actually giving starting number<br>
 					-added a couple more achievements
 					<h3>Version 0.2.0</h3>
 					-fixed incorrect starting number from a certain sacrifice upgrade<br>
@@ -91,6 +96,16 @@
 					-release<b>
 				</div>
 			</div>
+			<div id="statisticstab" class="menu">
+				<div id="statisticssubmenuselect">
+					<button class="menubutton" id="achievementsmenubutton" onclick="game.switchmenu('achievementstab')"><h4>Achievements</h4></button>
+				</div>
+				<div class="displaytext" id="statisticsdisplay">
+					<div v-for="statistic in player.statistics.statistics">
+					{{statistic}}<br>
+					</div>
+				</div>
+			</div>
 			<div id="achievementstab" class="menu">
 				<div v-for="achievement in player.achievementshandler.achievements">
 					<achievementdisplay :achievement="achievement"/>
@@ -109,6 +124,7 @@
 	<script src="sacrifice.js"></script>
 	<script src='achievement.js'></script>
 	<script src="components/achievement.js"></script>
+	<script src="statistics.js"></script>
 	<script src="player.js"></script>
 	<script src="loop.js"></script>
 	<script src="main.js"></script>

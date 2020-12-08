@@ -6,6 +6,7 @@ var game = new Vue({
 	methods:{
 		addnumber(num){
 			player.number = Decimal.plus(player.number, num);
+			player.totalnumberproduced = Decimal.plus(player.totalnumberproduced, num);
 		},
 		gameLoop(){
 			gameLoop(this)
@@ -39,6 +40,7 @@ game.switchmenu("producertab")
 game.unlockmenu("producersmenubutton")
 game.unlockmenu("optionsmenubutton")
 game.unlockmenu("achievementsmenubutton")
+game.unlockmenu("statisticsmenubutton")
 function format(amount){
 	if(new Decimal(amount).lessThan(new Decimal(1000))){
 		return new Decimal(amount).toPrecision(3).toString();

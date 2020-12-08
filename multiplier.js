@@ -6,7 +6,7 @@ class multiplier{
 		this.amount = 0;
 		this.bought = 0;
 		this.tier = tier;
-		this.mult = 1.5;
+		this._mult = new Decimal(1.5);
 	}
 	get canBuy() {
 		if(this.amount >= this.maxnum) return false;
@@ -35,6 +35,11 @@ class multiplier{
 		}else{
 			return this._maxnum + player.sacrifice.maxmultupgrades[this.tier - 1].amount;
 		}
+	}
+	get mult(){
+		mult = this._mult;
+		mult = mult.plus(player.achievementshandler.multiplierStrengthBonus);
+		return mult;
 	}
 }
 

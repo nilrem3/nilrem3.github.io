@@ -35,6 +35,11 @@ body{
 .completeachievement{
 	border-color: #00ff00;
 }
-.invisibleachievement{
-	display: none;
+#statisticssubmenuselect{
+	display: flex;
+	flex-direction: row;
+}
+#statisticsdisplay{
+	display: flex;
+	flex-direction: column;
 }
