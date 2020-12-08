@@ -20,6 +20,13 @@ class sacrificeupgrade {
 		sacrifice.numericpoints -= this.cost;
 		this.amount += 1;
 	}
+	get buttontext(){
+		if(this.maxnum > this.amount){
+			return this.name + ": " + format(this.cost) + " NP";
+		}else{
+			return "MAX";
+		}
+	}
 }
 Vue.component('sacrificeupgradedisplay', {
 	props: {
@@ -37,6 +44,6 @@ Vue.component('sacrificeupgradedisplay', {
 	},
 	template: 
 	`<div class="sacrificeupgradedisplay">
-		<button @click="upgrade.buy()">{{upgrade.name}}: {{format(upgrade.cost)}} NP</button>
+		<button @click="upgrade.buy()">{{upgrade.buttontext}}</button>
 	</div>`
 });

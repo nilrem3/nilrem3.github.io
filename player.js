@@ -14,6 +14,7 @@ var player = {
 	get numberperclick(){
 		num =  (new Decimal(1)).times(Decimal.pow(2, sacrifice.repeatableclickupgrade.amount));
 		num = Decimal.mul(num, this.achievementshandler.clickPowerMult);
+		num = Decimal.mul(num, this.achievementshandler.globalNumberMult);
 		return num;
 	},
 	get tierUpCost(){
