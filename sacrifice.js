@@ -40,7 +40,7 @@ var sacrifice = {
 	sacrifice(){
 		if(this.canSacrifice){
 			if(this.numericpointsonsacrifice.gte(new Decimal(500))){
-				player.acheivementshandler.completeAchievement(17);
+				player.achievementshandler.completeAchievement(17);
 			}
 			if(this.numericpointsonsacrifice.gte(new Decimal(1000))){
 				player.achievementshandler.completeAchievement(18);
