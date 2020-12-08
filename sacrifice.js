@@ -43,7 +43,7 @@ var sacrifice = {
 				player.acheivementshandler.completeAchievement(17);
 			}
 			if(this.numericpointsonsacrifice.gte(new Decimal(1000))){
-				player.acheivementshandler.completeAchievement(18);
+				player.achievementshandler.completeAchievement(18);
 			}
 			if(player.producers[0].amount == 20 && player.producers[1].amount == 20 && player.producers[2].amount == 20 && player.producers[3].amount == 20 && player.producers[4].amount == 20){
 				player.achievementshandler.completeAchievement(23);
