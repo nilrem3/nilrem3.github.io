@@ -80,12 +80,13 @@ function gameLoop(that) {
 		if(player.multipliers[0].amount == 6 && player.multipliers[1].amount == 6 && player.multipliers[2].amount == 6 && player.multipliers[3].amount == 6 && player.multipliers[4].amount == 6){
 			player.achievementshandler.completeAchievement(24);
 		}
-		if(that.player.tier <= 2 && that.player.number.gte(new Decimal("1e5"))){
-			player.achievementshandler.completeAchievement(27);
-		}
+		
 		if(player.producers[0].amount == 1 && player.producers[1].amount == 2 && player.producers[2].amount == 3 && player.producers[3].amount == 4 && player.producers[4].amount == 5){
 			player.achievementshandler.completeAchievement(28);
 		}
+	}
+	if(that.player.tier <= 2 && that.player.number.gte(new Decimal("1e5"))){
+			player.achievementshandler.completeAchievement(27);
 	}
 	if(that.player.number.gte(new Decimal("1e10"))){
 		that.player.achievementshandler.completeAchievement(29);

@@ -110,7 +110,7 @@ function loaddata(savedata, game){
 			game.player.achievementshandler.achievements[i].unlocked = savedata.data.achievementshandler.achievements[i];
 		}
 	}
-	if(savedata.data.saveversion >= 3){
+	if(savedata.data.saveversion >= 3){//Version 0.2.2
 		for(var i = 0; i < savedata.data.achievementshandler.achievementvisibility.length; i++){
 			game.player.achievementshandler.achievements[i].visible = savedata.data.achievementshandler.achievementvisibility[i];
 		}
