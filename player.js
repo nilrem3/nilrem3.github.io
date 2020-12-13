@@ -71,7 +71,6 @@ var player = {
 		for(var i = 0; i < this.producers.length; i++){
 			ret = Decimal.plus(this.producers[i].productionPerSecond, ret);
 		}
-		ret = ret.mul(player.achievementshandler.globalNumberMult);
 		return ret;
 	}
 	
