@@ -10,6 +10,9 @@ var statistics = {
 			ret.push("Times Sacrificed: " + format(player.sacrifice.timessacrificed));
 			ret.push("Total NP gained: " + format(player.sacrifice.totalnpgained));
 		}
+		if(player.sacrifice.factorshandler.unlocked){
+			ret.push("Total Factor Juice Gained: " + format(player.sacrifice.factorshandler.totalfactorjuicegained));
+		}
 		ret.push("OVERALL RATING: " + format(this.overallRating));
 		return ret;
 	},
@@ -21,6 +24,7 @@ var statistics = {
 		rating = rating.plus(Decimal.minus(Decimal.log(Decimal.plus(player.clicks, 10), new Decimal(10)), 1));
 		rating = rating.plus(Decimal.pow(player.sacrifice.timessacrificed, new Decimal(0.33)));
 		rating = rating.plus(Decimal.mul(2, Decimal.minus(Decimal.log(player.sacrifice.totalnpgained.plus(10), 10), 1)));
+		rating = rating.plus(Decimal.minus(Decimal.log(player.sacrifice.factorshandler.totalfactorjuicegained.plus(10), 10), 1));
 		return rating;
 	}
 }

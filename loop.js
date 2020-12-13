@@ -11,6 +11,11 @@ function gameLoop(that) {
 			that.unlockmenu("sacrificemenubutton");
 		}
 	}
+	//factor juice
+	if(player.sacrifice.factorshandler.unlocked){
+		that.player.sacrifice.factorshandler.factorjuice = that.player.sacrifice.factorshandler.factorjuice.plus(Decimal.mul(diff, that.player.sacrifice.factorshandler.factorJuicePerSecond));
+		that.player.sacrifice.factorshandler.totalfactorjuicegained = that.player.sacrifice.factorshandler.totalfactorjuicegained.plus(Decimal.mul(diff, that.player.sacrifice.factorshandler.factorJuicePerSecond));
+	}
 	that.player.achievementshandler.checkAchievementVisibility();
 	//check each achievement's unlock status
 	if(that.player.clicks >= 100){
@@ -121,5 +126,33 @@ function gameLoop(that) {
 	if(that.player.sacrifice.totalnpgained.gte(new Decimal(25000))){
 		that.player.achievementshandler.completeAchievement(39);
 	}
+	if(that.player.sacrifice.factorshandler.totalfactorjuicegained.gte(new Decimal(10))){
+		that.player.achievementshandler.completeAchievement(40);
+	}
+	if(that.player.sacrifice.factorshandler.totalfactorjuicegained.gte(new Decimal(100))){
+		that.player.achievementshandler.completeAchievement(41);
+	}
+	if(that.player.sacrifice.factorshandler.totalfactorjuicegained.gte(new Decimal(1000))){
+		that.player.achievementshandler.completeAchievement(42);
+	}
+	if(that.player.sacrifice.factorshandler.totalfactorjuicegained.gte(new Decimal("1e4"))){
+		that.player.achievementshandler.completeAchievement(43);
+	}
+	if(that.player.sacrifice.factorshandler.totalfactorjuicegained.gte(new Decimal("1e5"))){
+		that.player.achievementshandler.completeAchievement(44);
+	}
+	if(that.player.sacrifice.factorshandler.totalfactorjuicegained.gte(new Decimal("1e6"))){
+		that.player.achievementshandler.completeAchievement(45);
+	}
+	if(that.player.sacrifice.factorshandler.totalfactorjuicegained.gte(new Decimal("1e7"))){
+		that.player.achievementshandler.completeAchievement(46);
+	}
+	if(that.player.sacrifice.factorshandler.factorizersbought.gte(new Decimal(1))){
+		that.player.achievementshandler.completeAchievement(47);
+	}
+	if(that.player.sacrifice.factorshandler.factorizersbought.gte(new Decimal(2))){
+		that.player.achievementshandler.completeAchievement(48);
+	}
+	
 	
 }

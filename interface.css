@@ -43,3 +43,39 @@ body{
 	display: flex;
 	flex-direction: column;
 }
+.factordisplay {
+	display: flex;
+	flex-direction: row;
+	height: 50px;
+	border: solid 3px;
+	padding: 10px;
+	margin: 5px;
+	border-color: #a88d32;
+	align-items: center;
+}
+.factordisplay > *{
+	margin: 5px;
+}
+button .sacrificecolored{
+	
+}
+.factorcolored{
+	border: solid 3px #a88d32;
+}
+button{
+	border-radius: 3px;
+}
+button:hover{
+	border-radius: 0px;
+}
+#factorizersinfodisplay{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.lockedfactor{
+	display:none;
+}
+.factorcoloredtext{
+	color: #a88d32;
+}

@@ -39,6 +39,7 @@ class multiplier{
 	get mult(){
 		mult = this._mult;
 		mult = mult.plus(player.achievementshandler.multiplierStrengthBonus);
+		mult = mult.mul(player.sacrifice.factorshandler.factors[4].bonus);
 		return mult;
 	}
 }

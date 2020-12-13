@@ -35,6 +35,7 @@
 				</div>
 			</div>
 			<div id="sacrificetab" class="menu">
+			<button onclick="game.switchmenu('factorstab')" id="factorsmenubutton" class="factorcolored menubutton">factors</button><br>
 				<span class="displaytext" id="NPdisplay">You have {{format(player.sacrifice.numericpoints)}} Numeric Points</span>
 				<button id="sacrificebutton" onclick="player.sacrifice.sacrifice()">{{player.sacrifice.sacrificebuttontext}}</button>
 				<div id="sacrificerepeatableupgrades">
@@ -63,12 +64,23 @@
 						</div>
 					</div>
 				</div>
+				<span>
+					<button id="unlockfactors" class="factorcolored" onclick="player.sacrifice.factorshandler.unlock()">Unlock Factors for 1000 NP</button>
+				</span>
 			</div>
 			<div id="optionstab" class="menu">
 				<button onclick="save()">Save</button>
 				<button onClick="load()">Load</button>
+				<button onClick="saveToClipboard()">Copy Save to Clipboard</button>
+				<input id="savebox" type="text"></input>
+				<button onClick="loadFromPastedSave()" id="loadfromclipboardbutton">Load from Pasted save</button>
 				<div id="patch notes"  class="displaytext">
 					<h2>patch notes</h2>
+					<h3>Version 0.3.0</h3>
+					-added saving and loading via text<br>
+					-added <span class="factorcoloredtext">factorizers</span>, a new feature!<br>
+					-added some achievements related to factors<br>
+					<b>Important Notice: At some point I will be migrating the game to a different URL.  Saves will be deleted so make sure you save your game to a text file before then.</b>
 					<h3>Version 0.2.2-3</h3>
 					-changed formula for overall rating: times sacrificed is weighted slightly more<br>
 					-fixed a few bugs with acheivements
@@ -119,6 +131,27 @@
 					<achievementdisplay :achievement="achievement"/>
 				</div>
 			</div>
+			<div id="factorstab" class="menu">
+				<div id="factorizersinfodisplay" class="displaytext">
+					<p>
+					You Have <span class="factorcoloredtext">{{player.sacrifice.factorshandler.factorizers}}</span> Factorizer(s)!  
+					</p>
+					<p>
+					The next Factorizer will cost {{player.sacrifice.factorshandler.nextFactorizerCost}} Numeric Points
+					</p>
+					<button class="factorcolored" onClick="player.sacrifice.factorshandler.buyFactorizer()">Gain 1 Factorizer</button>
+					<p>
+					Factorizers can be used to activate Factors
+					</p>
+					<p>You also have <span class="factorcoloredtext">{{format(player.sacrifice.factorshandler.factorjuice)}}</span> Factor Juice (<span class="factorcoloredtext">+{{format(player.sacrifice.factorshandler.factorJuicePerSecond)}}</span>/s)</p>
+					<p>Factor Juice Gain is based on how many times you've sacrificed</p>
+					<p>Your Base Juice Multiplier is <span class="factorcoloredtext">x{{format(player.sacrifice.factorshandler.baseJuiceMultiplier)}}</span></p>
+					<p><button onClick="player.sacrifice.factorshandler.refundFactorizers()"id="refundFactorizersButton"class="factorcolored"><h4>Refund All Factorizers, but reset the current sacrifice</h4></button></p>
+				</div>
+				<div v-for="factor in player.sacrifice.factorshandler.factors">
+					<factordisplay :factor="factor"/>
+				</div>
+			</div>
 		</div>	
 	</body>
 	<script src="libraries/vue.js"></script>
@@ -128,6 +161,9 @@
 	<script src="producer.js"></script>
 	<script src="components/producer.js"></script>
 	<script src="components/multiplier.js"></script>
+	<script src="factor.js"></script>
+	<script src="components/factor.js"></script>
+	<script src="factors.js"></script>
 	<script src="sacrificeupgrade.js"></script>
 	<script src="sacrifice.js"></script>
 	<script src='achievement.js'></script>

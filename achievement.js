@@ -79,11 +79,20 @@ var achievementshandler = {
 	new achievement("Even More Production", "Make a total of 1e10 number", "1.02x all number", 3),
 	new achievement("Even Even More Production", "Make a total of 1e12 number", "1.02x all number", 4),
 	new achievement("Very Huge number", "Have 1e12 number", "1.1x number from producers", 4),//34
-	new achievement("Pious", "Gain a total of 1000 NP", "1.05x NP gain", 3),//this and onwards don't have implemented rewards or unlocks yet
+	new achievement("Pious", "Gain a total of 1000 NP", "1.05x NP gain", 3),
 	new achievement("Piouser", "Gain a total of 2500 NP", "1.05x NP gain", 3),
 	new achievement("Piouserer", "Gain a total of 5000 NP", "1.05x NP gain", 3),
 	new achievement("Piousererest", "Gain a total of 10000 NP", "1.05x NP gain", 3),
-	new achievement("Piousererseter", "Gain a total of 25000 NP.  Did you think the last one was the end?", "1.05x NP gain", 4)
+	new achievement("Piousererseter", "Gain a total of 25000 NP.  Did you think the last one was the end?", "1.05x NP gain", 4),//39
+	new achievement("Damp", "Gain a total of 10 Factor Juice", "x1.05 Factor Juice Gain", 5),//reward and unlock not implemented yet from here on
+	new achievement("Moist", "Gain a total of 100 Factor Juice", "x1.05 Factor Juice Gain", 5),
+	new achievement("Soggy", "Gain a total of 1000 Factor Juice", "x1.05 Factor Juice Gain", 5),
+	new achievement("Wet", "Gain a total of 1e4 Factor Juice", "x1.05 Factor Juice Gain", 5),
+	new achievement("Sopping", "Gain a total of 1e5 Factor Juice", "x1.05 Factor Juice Gain", 5),
+	new achievement("Soaked", "Gain a total of 1e6 Factor Juice", "x1.05 Factor Juice Gain", 6),
+	new achievement("Gushing", "Gain a total of 1e7 Factor Juice", "x1.05 Factor Juice Gain", 6),//Flowing, Pouring, Dripping, Drizzling, Roaring River(not necessarily in that order) 
+	new achievement("Factorized", "Have 1 Factorizer", "1.05x all number", 5),
+	new achievement("Twice as Factorized", "Have 2 Factorizers", "x1.05 all number", 5)
 	//new achievement("Useless", "Sacrifice without having any producer 1", "1.2x number from producer 1", 3),
 	],
 	checkAchievementVisibility(){
@@ -96,6 +105,12 @@ var achievementshandler = {
 		}
 		if(player.sacrifice.timessacrificed >= 10){
 			this.makevisible(4);
+		}
+		if(player.sacrifice.factorshandler.unlocked){
+			this.makevisible(5);
+		}
+		if(player.sacrifice.factorshandler.factorizersbought.gte(2)){
+			this.makevisible(6);
 		}
 	},
 	makevisible(visibilitytype){
@@ -260,6 +275,12 @@ var achievementshandler = {
 		if(this.achievements[33].unlocked){
 			mult = mult.mul(new Decimal(1.02));
 		}
+		if(this.achievements[47].unlocked){
+			mult = mult.mul(new Decimal(1.05));
+		}
+		if(this.achievements[48].unlocked){
+			mult = mult.mul(new Decimal(1.05));
+		}
 		return mult;
 	},
 	get numCompleted(){
@@ -270,5 +291,30 @@ var achievementshandler = {
 			}
 		}
 		return num;
+	},
+	get factorJuiceMult(){
+		mult = new Decimal(1);
+		if(this.achievements[40].unlocked){
+			mult = mult.mul(new Decimal(1.05));
+		}
+		if(this.achievements[41].unlocked){
+			mult = mult.mul(new Decimal(1.05));
+		}
+		if(this.achievements[42].unlocked){
+			mult = mult.mul(new Decimal(1.05));
+		}
+		if(this.achievements[43].unlocked){
+			mult = mult.mul(new Decimal(1.05));
+		}
+		if(this.achievements[44].unlocked){
+			mult = mult.mul(new Decimal(1.05));
+		}
+		if(this.achievements[45].unlocked){
+			mult = mult.mul(new Decimal(1.05));
+		}
+		if(this.achievements[46].unlocked){
+			mult = mult.mul(new Decimal(1.05));
+		}
+		return mult;
 	}
 }

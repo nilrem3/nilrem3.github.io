@@ -15,6 +15,7 @@ var player = {
 		num =  (new Decimal(1)).times(Decimal.pow(2, sacrifice.repeatableclickupgrade.amount));
 		num = Decimal.mul(num, this.achievementshandler.clickPowerMult);
 		num = Decimal.mul(num, this.achievementshandler.globalNumberMult);
+		num = Decimal.mul(num, this.sacrifice.factorshandler.factors[2].bonus);
 		return num;
 	},
 	get tierUpCost(){
@@ -47,6 +48,8 @@ var player = {
 		//starting number
 		this.number = this.number.plus(new Decimal(5).times(sacrifice.repeatablestartingnumberupgrade.amount))
 		this.number = this.number.plus(this.achievementshandler.startingNumberBonus);
+		//multipliers to starting number
+		this.number = this.number.mul(this.sacrifice.factorshandler.factors[3].bonus);
 		//set up producers and multipliers
 		this.producers = [];
 		this.multipliers = [];

@@ -1,8 +1,10 @@
 var sacrifice = {
+	factorshandler: factorshandler,
 	unlocked: false,
 	numericpoints: new Decimal(0),
 	totalnpgained: new Decimal(0),
 	timessacrificed: 0,
+	timessacrificedthisoverload: 0,
 	maxmultupgrades: [],
 	maxproducerupgrades: [],
 	repeatableclickupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x2 Click Power"),
@@ -32,6 +34,7 @@ var sacrifice = {
 		value = value.plus(player.achievementshandler.baseNpBonus);
 		value = value.mul(player.achievementshandler.npMult);
 		value = value.times(Decimal.pow(1.2, sacrifice.repeatablenpmultupgrade.amount));
+		value = value.mul(player.sacrifice.factorshandler.factors[1].bonus);
 		return value;
 	},
 	get canSacrifice(){
@@ -52,9 +55,9 @@ var sacrifice = {
 				player.achievementshandler.completeAchievement(25);
 			}
 			this.timessacrificed += 1;
+			this.timessacrificedthisoverload += 1;
 			this.addNumericPoints(this.numericpointsonsacrifice);
-			player.tier = 0;
-			player.resetEverythingTierUpDoes();
+			this.resetEverythingSacrificeDoes();
 		}
 	},
 	addNumericPoints(points){
@@ -65,5 +68,9 @@ var sacrifice = {
 	get sacrificebuttontext(){
 		if(this.canSacrifice) return "Sacrifice Your Producers and Multipliers to Gain " + this.numericpointsonsacrifice + " Numeric Points!";
 		else return "Cannot Sacrifice Below tier 5 or for less than 70 NP";
+	},
+	resetEverythingSacrificeDoes(){
+		player.tier = 0;
+		player.resetEverythingTierUpDoes();
 	}
 }

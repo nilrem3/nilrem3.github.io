@@ -1,7 +1,7 @@
 class savedata {
 	constructor(player, sacrifice){
 		this.data = {
-			saveversion: 3,
+			saveversion: 4,
 			number: player.number,
 			totalnumberproduced: player.totalnumberproduced,
 			tier: player.tier,
@@ -20,7 +20,17 @@ class savedata {
 				repeatablenumbermultupgrade: getsacrificeupgradesave(sacrifice.repeatablenumbermultupgrade),
 				repeatablenpmultupgrade: getsacrificeupgradesave(sacrifice.repeatablenpmultupgrade),
 				timessacrificed: sacrifice.timessacrificed,
-				totalnpgained: sacrifice.totalnpgained
+				timessacrificedthisoverload: sacrifice.timessacrificedthisoverload,
+				totalnpgained: sacrifice.totalnpgained,
+				factorshandler: {
+					unlocked: player.sacrifice.factorshandler.unlocked,
+					factorjuice: player.sacrifice.factorshandler.factorjuice,
+					totalfactorjuicegained: player.sacrifice.factorshandler.totalfactorjuicegain,
+					factorizers: player.sacrifice.factorshandler.factorizers,
+					factorizersbought: player.sacrifice.factorshandler.factorizersbought,
+					factors: [],
+					factorsunlocked: []
+				}
 			},
 			achievementshandler: {
 				achievements: [],
@@ -44,6 +54,10 @@ class savedata {
 		}
 		for(var i = 0; i < player.achievementshandler.achievements.length; i++){
 			this.data.achievementshandler.achievementvisibility.push(player.achievementshandler.achievements[i].visible);
+		}
+		for(var i = 0; i < sacrifice.factorshandler.factors.length; i++){
+			this.data.sacrifice.factorshandler.factors.push(sacrifice.factorshandler.factors[i].numbought);
+			this.data.sacrifice.factorshandler.factorsunlocked.push(sacrifice.factorshandler.factors[i].unlocked);
 		}
 	}
 }
@@ -75,9 +89,11 @@ function getsacrificeupgradesave(upgrade){
 }
 function loaddata(savedata, game){
 	if(savedata.data.saveversion >= 1){
-		game.player.number = savedata.data.number;
+		game.player.number = new Decimal(savedata.data.number);
 		game.player.tier = savedata.data.tier;
 		game.player.highesttier = savedata.data.highesttier;
+		game.player.producers = [];
+		game.player.multipliers = [];
 		for(var i = 0; i < savedata.data.multipliers.length; i++){
 			game.player.multipliers.push(loadmultiplier(savedata.data.multipliers[i]));
 		}
@@ -89,7 +105,7 @@ function loaddata(savedata, game){
 		if(sacrifice.unlocked){
 			game.unlockmenu("sacrificemenubutton");
 		}
-		game.player.sacrifice.numericpoints = savedata.data.sacrifice.numericpoints;
+		game.player.sacrifice.numericpoints = new Decimal(savedata.data.sacrifice.numericpoints);
 		game.player.sacrifice.sacrificed = savedata.data.sacrifice.sacrificed;
 		game.player.sacrifice.addmaxupgrades(game.player.highesttier);
 		for(var i = 0; i < savedata.data.sacrifice.maxmultupgrades.length; i++){
@@ -117,6 +133,22 @@ function loaddata(savedata, game){
 		game.player.totalnumberproduced = new Decimal(savedata.data.totalnumberproduced);
 		game.player.sacrifice.totalnpgained = new Decimal(savedata.data.sacrifice.totalnpgained);
 	}
+	if(savedata.data.saveversion >= 4){//factors update
+		game.player.sacrifice.timessacrificedthisoverload = savedata.data.sacrifice.timessacrificedthisoverload;
+		if(savedata.data.sacrifice.factorshandler.unlocked){
+			game.unlockmenu("factorsmenubutton");
+			document.getElementById("unlockfactors").style.display = "none";
+			game.player.sacrifice.factorshandler.unlocked = true;
+		}
+		game.player.sacrifice.factorshandler.factorjuice = new Decimal(savedata.data.sacrifice.factorshandler.factorjuice);
+		game.player.sacrifice.factorshandler.totalfactorjuicegained = new Decimal(savedata.data.sacrifice.factorshandler.totalfactorjuicegained);
+		game.player.sacrifice.factorshandler.factorizers = new Decimal(savedata.data.sacrifice.factorshandler.factorizers);
+		game.player.sacrifice.factorshandler.factorizersbought = new Decimal(savedata.data.sacrifice.factorshandler.factorizersbought);
+		for(var i = 0; i < savedata.data.sacrifice.factorshandler.factors.length; i++){
+			game.player.sacrifice.factorshandler.factors[i].numbought = new Decimal(savedata.data.sacrifice.factorshandler.factors[i]);
+			game.player.sacrifice.factorshandler.factors[i].unlocked = savedata.data.sacrifice.factorshandler.factorsunlocked[i];
+		}
+	}
 }
 function loadproducer(producersave, multiplier){
 	loadedproducer = createProducer(producersave.tier, multiplier);
@@ -135,4 +167,12 @@ function save(){
 }
 function load(){
 	loaddata(JSON.parse(window.localStorage.getItem('save')), game);
+}
+function saveToClipboard(){
+	var copyText = JSON.stringify(new savedata(game.player, game.player.sacrifice));
+	alert("Your save is: " + copyText);
+}
+function loadFromPastedSave(){
+		console.log(document.getElementById("savebox").value);
+		loaddata(JSON.parse(document.getElementById("savebox").value), game);
 }
