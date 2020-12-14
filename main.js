@@ -42,7 +42,7 @@ game.unlockmenu("optionsmenubutton")
 game.unlockmenu("achievementsmenubutton")
 game.unlockmenu("statisticsmenubutton")
 //debug
-//game.unlockmenu("sacrificemenubutton")
+game.unlockmenu("sacrificemenubutton")
 function format(amount){
 	if(new Decimal(amount).lessThan(new Decimal(1000))){
 		return new Decimal(amount).toPrecision(3).toString();

@@ -13,7 +13,7 @@
 			</div>
 			<div id="mainmenuselect">
 				<button class="menubutton" id="producersmenubutton" onclick="game.switchmenu('producertab')"><h3>Producers</h3></button>
-				<button class="menubutton" id="sacrificemenubutton" onclick="game.switchmenu('sacrificetab')"><h3>Sacrifice</h3></button>
+				<button class="menubutton sacrificecolored" id="sacrificemenubutton" onclick="game.switchmenu('sacrificetab')"><h3>Sacrifice</h3></button>
 				<button class="menubutton" id="optionsmenubutton" onclick="game.switchmenu('optionstab')"><h3>Options</h3></button>
 				<button class="menubutton" id="statisticsmenubutton" onclick="game.switchmenu('statisticstab')"><h3>Statistics</h3></button>
 			</div>
@@ -36,8 +36,8 @@
 			</div>
 			<div id="sacrificetab" class="menu">
 			<button onclick="game.switchmenu('factorstab')" id="factorsmenubutton" class="factorcolored menubutton">factors</button><br>
-				<span class="displaytext" id="NPdisplay">You have {{format(player.sacrifice.numericpoints)}} Numeric Points</span>
-				<button id="sacrificebutton" onclick="player.sacrifice.sacrifice()">{{player.sacrifice.sacrificebuttontext}}</button>
+				<span class="displaytext" id="NPdisplay">You have <span class="sacrificecoloredtext">{{format(player.sacrifice.numericpoints)}}</span> Numeric Points</span>
+				<button id="sacrificebutton" onclick="player.sacrifice.sacrifice()" class="sacrificecolored" v-html="player.sacrifice.sacrificebuttontext"></button>
 				<div id="sacrificerepeatableupgrades">
 					<div>
 					<sacrificeupgradedisplay :upgrade="player.sacrifice.repeatableclickupgrade"/>
@@ -76,6 +76,9 @@
 				<button onClick="loadFromPastedSave()" id="loadfromclipboardbutton">Load from Pasted save</button>
 				<div id="patch notes"  class="displaytext">
 					<h2>patch notes</h2>
+					<h3>Version 0.3.1</h3>
+					-added some colors to <span class="sacrificecoloredtext">sacrifice</span> related things<br>
+					-modified save/load system to fix sacrifices performed before version 0.3.0 not contributing to factor juice gain<br>
 					<h3>Version 0.3.0-1</h3>
 					-fixed achievement global number bonus being applied twice<br>
 					<h3>Version 0.3.0</h3>

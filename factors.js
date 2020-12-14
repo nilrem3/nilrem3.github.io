@@ -10,7 +10,7 @@ var factorshandler = {
 		new factor("Multiply Click Power by base juice multiplier ^1.5", function(){return Decimal.pow(player.sacrifice.factorshandler.baseJuiceMultiplier, 1.5);}, true),
 		new factor("Multiply Starting Number by base juice multiplier ^2", function(){return Decimal.pow(player.sacrifice.factorshandler.baseJuiceMultiplier, 2);}, true),
 		new factor("Multiply Multiplier Value by base juice multiplier ^0.1", function(){return Decimal.pow(player.sacrifice.factorshandler.baseJuiceMultiplier, 0.1);}, true),
-		new factor("Multiply Factor Juice Gain by Factorizers bought", function(){return player.sacrifice.factorshandler.factorizersbought;}, true)
+		new factor("Multiply Factor Juice Gain by Factorizers bought", function(){return player.sacrifice.factorshandler.factorizersbought;}, true)//did some math and this one is way too powerful if you can put more than 1 factorizer in it, so it's gonna have to cap out at 1
 	],
 	get factorJuicePerSecond(){
 		juice = new Decimal(0.01);

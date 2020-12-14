@@ -66,8 +66,8 @@ var sacrifice = {
 		this.totalnpgained = Decimal.plus(this.totalnpgained, points);
 	},
 	get sacrificebuttontext(){
-		if(this.canSacrifice) return "Sacrifice Your Producers and Multipliers to Gain " + this.numericpointsonsacrifice + " Numeric Points!";
-		else return "Cannot Sacrifice Below tier 5 or for less than 70 NP";
+		if(this.canSacrifice) return `Sacrifice Your Producers and Multipliers to Gain <span class=\"sacrificecoloredtext\">` + this.numericpointsonsacrifice + `</span> Numeric Points!`;
+		else return `Cannot Sacrifice Below tier 5 or for less than 70 NP`;
 	},
 	resetEverythingSacrificeDoes(){
 		player.tier = 0;

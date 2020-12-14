@@ -74,8 +74,14 @@ button:hover{
 	align-items: center;
 }
 .lockedfactor{
-	display:none;
+	display: none;
 }
 .factorcoloredtext{
 	color: #a88d32;
+}
+.sacrificecolored{
+	border: solid 3px #b8125a;
+}
+.sacrificecoloredtext{
+	color: #b8125a;
 }

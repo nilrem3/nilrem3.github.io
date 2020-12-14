@@ -149,6 +149,9 @@ function loaddata(savedata, game){
 			game.player.sacrifice.factorshandler.factors[i].unlocked = savedata.data.sacrifice.factorshandler.factorsunlocked[i];
 		}
 	}
+	if(/*timesoverloaded=0 &&*/ game.player.sacrifice.timessacrificed > game.player.timessacrificedthisoverload){
+		game.player.sacrifice.timessacrificedthisoverload = game.player.sacrifice.timessacrificed;
+	}		
 }
 function loadproducer(producersave, multiplier){
 	loadedproducer = createProducer(producersave.tier, multiplier);

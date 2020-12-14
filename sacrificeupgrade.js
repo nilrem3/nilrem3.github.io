@@ -48,6 +48,6 @@ Vue.component('sacrificeupgradedisplay', {
 	},
 	template: 
 	`<div class="sacrificeupgradedisplay">
-		<button @click="upgrade.buy()">{{upgrade.buttontext}}</button>
+		<button class="sacrificecolored" @click="upgrade.buy()">{{upgrade.buttontext}}</button>
 	</div>`
 });
