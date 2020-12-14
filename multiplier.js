@@ -26,7 +26,7 @@ class multiplier{
 		
 	}
 	get buttontext(){
-		if(this.amount < this.maxnum) return "x" + this.mult + ": " + format(this.cost);
+		if(this.amount < this.maxnum) return "x" + format(this.mult) + ": " + format(this.cost);
 		return "MAX";
 	}
 	get maxnum(){

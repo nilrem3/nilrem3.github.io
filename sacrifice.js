@@ -12,7 +12,7 @@ var sacrifice = {
 	repeatablenumbermultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.5 number from all producers"),
 	repeatablenpmultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.2 NP from sacrifice"),
 	generatemaxproducerupgrade(tier){
-		return new sacrificeupgrade(Decimal.mul(10, Decimal.pow(2, tier - 1)), new Decimal(1.6), 9, "Increase the maximum of Producer " + tier);//9 instead of 10 to account for the achievement that gives +1
+		return new sacrificeupgrade(Decimal.mul(10, Decimal.pow(2, tier - 1)), new Decimal(1.6), 13, "Increase the maximum of Producer " + tier);//13 instead of 14 to account for the achievement that gives +1
 	},
 	generatemaxmultiplierupgrade(tier){
 		return new sacrificeupgrade(Decimal.mul(40, Decimal.pow(2, tier - 1)), new Decimal(5), 3, "Increase the maximum of Multiplier " + tier);
@@ -48,7 +48,7 @@ var sacrifice = {
 			if(this.numericpointsonsacrifice.gte(new Decimal(1000))){
 				player.achievementshandler.completeAchievement(18);
 			}
-			if(player.producers[0].amount == 20 && player.producers[1].amount == 20 && player.producers[2].amount == 20 && player.producers[3].amount == 20 && player.producers[4].amount == 20){
+			if(player.producers[0].amount == 24 && player.producers[1].amount == 24 && player.producers[2].amount == 24 && player.producers[3].amount == 24 && player.producers[4].amount == 24){
 				player.achievementshandler.completeAchievement(23);
 			}
 			if(player.multipliers[0].amount == 0 && player.multipliers[1].amount == 0 && player.multipliers[2].amount == 0 && player.multipliers[3].amount == 0 && player.multipliers[4].amount == 0 && player.producers[4].amount >= 1){
@@ -66,7 +66,7 @@ var sacrifice = {
 		this.totalnpgained = Decimal.plus(this.totalnpgained, points);
 	},
 	get sacrificebuttontext(){
-		if(this.canSacrifice) return `Sacrifice Your Producers and Multipliers to Gain <span class=\"sacrificecoloredtext\">` + this.numericpointsonsacrifice + `</span> Numeric Points!`;
+		if(this.canSacrifice) return `Sacrifice Your Producers and Multipliers to Gain <span class=\"sacrificecoloredtext\">` + format(this.numericpointsonsacrifice) + `</span> Numeric Points!`;
 		else return `Cannot Sacrifice Below tier 5 or for less than 70 NP`;
 	},
 	resetEverythingSacrificeDoes(){

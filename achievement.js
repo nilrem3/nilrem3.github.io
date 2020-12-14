@@ -67,10 +67,10 @@ var achievementshandler = {
 	new achievement("Zoomier", "make 1e5 number per second", "x1.05x number from producers", 3),
 	new achievement("Auger", "sacrifice 10 times", "+5 base NP when sacrificing", 3),
 	new achievement("Sacrificial Expert", "Sacrifice 25 times", "+5 base NP when sacrificing", 4),
-	new achievement("Perfect Sacrifice", "Sacrifice with 20 of each producer", "+10 base NP when sacrificing", 2),
+	new achievement("Perfect Sacrifice", "Sacrifice with 24 of each producer", "+10 base NP when sacrificing", 2),
 	new achievement("Maximum Multiplication", "Get 6 of each multiplier 1-5", "multipliers are now x1.55 per level", 3),//24
 	new achievement("Minimum Multiplication", "Sacrifice without having any multipliers, and having at least 1 producer 5.", "1.05x all number", 3),
-	new achievement("Overloaded", "Have 6 of each multiplier and 20 of each producer 1-5", "UNLOCK A NEW FEATURE (technically not implemented yet), and also x1.05 all number", 3),//this one doesn't have an unlock yet but the reward is in
+	new achievement("Overloaded", "Have 6 of each multiplier and 24 of each producer 1-5", "UNLOCK A NEW FEATURE (technically not implemented yet), and also x1.05 all number", 3),//this one doesn't have an unlock yet but the reward is in
 	new achievement("Meaningless Wealth", "Have at least 1e5 number in tier 2", "1.05x all number in tiers 4 and below", 3),
 	new achievement("Organized", "Have 1 of producer 1, 2 of producer 2, 3 of producer 3, etc. up to 5", "1.1x all number", 3),//28
 	new achievement("Huge Number", "Have 1e10 Number", "1.1x number from producers", 3),
