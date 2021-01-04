@@ -15,7 +15,7 @@ Vue.component('achievementdisplay', {
 	template: `<div :class="achievement.class">
 			<h2>{{achievement.name}}</h2>
 			{{achievement.description}}<br>
-			{{achievement.reward}}
+			{{achievement.rewardstring}}
 		</div>`
 		
 		

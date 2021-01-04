@@ -2,7 +2,7 @@ class achievement{
 	constructor(name, description, rewardtype, reward, ismult,visibilitytype){
 		this._name = name;
 		this._description = description;
-		this._reward = reward;
+		this.reward = reward;
 		this.unlocked = false;
 		this.visible = false;
 		this.visibilitytype = visibilitytype;
@@ -21,7 +21,7 @@ class achievement{
 		}
 		return "????????????????"
 	}
-	get reward(){
+	get rewardstring(){
 		if(this.visible){
 			ret = "Reward: ";
 			if(this.ismult){
@@ -29,7 +29,7 @@ class achievement{
 			}else{
 				ret += "+";
 			}
-			ret += format(this._reward);
+			ret += format(this.reward);
 			ret += " " + this.rewardtype;
 			return ret;
 		}
