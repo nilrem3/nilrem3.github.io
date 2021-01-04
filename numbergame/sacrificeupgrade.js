@@ -50,6 +50,9 @@ class sacrificeupgrade {
 			return new Decimal(0);
 		}
 		var num = Decimal.floor(Decimal.log((new Decimal(-1).mul((new Decimal(1).sub(this.scaling).div(this.cost))).mul(player.number)).plus(1), this.scaling));
+		if(this.maxlevel == null){
+			return num;
+		}
 		if(num.gte(this.maxlevel.sub(this.amount))){
 			return this.maxlevel.sub(this.amount);
 		}
