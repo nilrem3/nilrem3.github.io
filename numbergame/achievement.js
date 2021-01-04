@@ -187,7 +187,7 @@ var achievementshandler = {
 		var mult = new Decimal(1);
 		var bonus = new Decimal(0);
 		for(var i = 0; i < this.achievements.length; i++){
-			if(this.achievements[i].rewardtype == bonustype && this.achievewents[i].unlocked){
+			if(this.achievements[i].rewardtype == bonustype && this.achievements[i].unlocked){
 				if(this.achievements[i].ismult){
 					mult = mult.mul(this.achievements[i].reward);
 				}else{
