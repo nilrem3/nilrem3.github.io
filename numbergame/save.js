@@ -159,10 +159,10 @@ function loaddata(savedata, game){
 		for(var i = 0; i < savedata.data.sacrifice.maxproducerupgrades.length; i++){
 			game.player.sacrifice.maxproducerupgrades[i].amount = new Decimal(savedata.data.sacrifice.maxproducerupgrades[i].amount);
 		}
-		game.player.sacrifice.repeatableclickupgrade.amount = savedata.data.sacrifice.repeatableclickupgrade.amount;
-		game.player.sacrifice.repeatablestartingnumberupgrade.amount = savedata.data.sacrifice.repeatablestartingnumberupgrade.amount;
-		game.player.sacrifice.repeatablenumbermultupgrade.amount = savedata.data.sacrifice.repeatablenumbermultupgrade.amount;
-		game.player.sacrifice.repeatablenpmultupgrade.amount = savedata.data.sacrifice.repeatablenpmultupgrade.amount;
+		game.player.sacrifice.repeatableclickupgrade.amount = new Decimal(savedata.data.sacrifice.repeatableclickupgrade.amount);
+		game.player.sacrifice.repeatablestartingnumberupgrade.amount = new Decimal(savedata.data.sacrifice.repeatablestartingnumberupgrade.amount);
+		game.player.sacrifice.repeatablenumbermultupgrade.amount = new Decimal(savedata.data.sacrifice.repeatablenumbermultupgrade.amount);
+		game.player.sacrifice.repeatablenpmultupgrade.amount = new Decimal(savedata.data.sacrifice.repeatablenpmultupgrade.amount);
 	}
 	while(game.player.chargers.length < game.player.producers.length){
 		game.player.chargers.push(makecharger(game.player.chargers.length));
