@@ -93,7 +93,7 @@ class producer {
 		if(!player.sacrifice.maxproducerupgrades.length < this.tier){
 			num = num.plus(player.sacrifice.maxproducerupgrades[this.tier - 1].amount);
 		}
-		num = num.plus(player.achievementshandler.achievementBonus("maximim producers", false));
+		num = num.plus(player.achievementshandler.achievementBonus("maximum producers", false));
 		return num;
 	}
 	get numaffordable(){
