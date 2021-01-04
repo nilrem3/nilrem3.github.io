@@ -186,7 +186,7 @@ var achievementshandler = {
 	achievementBonus(bonustype, ismult){
 		var mult = new Decimal(1);
 		var bonus = new Decimal(0);
-		for(var i = 0; i < this.achievements.size; i++){
+		for(var i = 0; i < this.achievements.length; i++){
 			if(this.achievements[i].rewardtype == bonustype){
 				if(this.achievements[i].ismult){
 					mult = mult.mul(this.achievements[i].reward);
