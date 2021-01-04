@@ -7,7 +7,7 @@ var sacrifice = {
 	timessacrificedthisoverload: new Decimal(0),
 	maxmultupgrades: [],
 	maxproducerupgrades: [],
-	maxclickmultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), 3, "+1 max Clicking Multiplier"),
+	maxclickmultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), new Decimal(3), "+1 max Clicking Multiplier"),
 	repeatableclickupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x2 Click Power"),
 	repeatablestartingnumberupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "+5 Starting Number"),
 	repeatablenumbermultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.5 number from all producers"),
