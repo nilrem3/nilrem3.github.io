@@ -79,7 +79,7 @@ class producer {
 		if(player.overload.challenges[8].active || player.overload.challenges[9].active){
 			return new Decimal(0);
 		}
-		points = Decimal.mul(this.amount, this.numericpointvalue);
+		var points = Decimal.mul(this.amount, this.numericpointvalue);
 		if(player.overload.overloadupgradetable.columns[2][0].bought){
 			points = points.mul(Decimal.pow(this.multiplier.value, 0.33));
 		}
