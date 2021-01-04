@@ -29,7 +29,7 @@ class sacrificeupgrade {
 	}
 	get buttontext(){
 		if(this.maxlevel != null){
-			if(this.maxlevel > this.amount){
+			if(this.maxlevel.gt(this.amount)){
 				return this.name + ": " + format(this.cost) + " NP";
 			}else{
 				return "MAX";
