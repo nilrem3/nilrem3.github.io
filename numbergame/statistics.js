@@ -13,6 +13,9 @@ var statistics = {
 		if(player.sacrifice.factorshandler.unlocked){
 			ret.push("Total Factor Juice Gained: " + format(player.sacrifice.factorshandler.totalfactorjuicegained));
 		}
+		if(player.overload.unlocked){
+			ret.push("Highest times Overloaded: " + format(player.overload.besttimesoverloaded));
+		}
 		ret.push("OVERALL RATING: " + format(this.overallRating));
 		return ret;
 	},
@@ -25,6 +28,7 @@ var statistics = {
 		rating = rating.plus(Decimal.pow(player.sacrifice.timessacrificed, new Decimal(0.33)));
 		rating = rating.plus(Decimal.mul(2, Decimal.minus(Decimal.log(player.sacrifice.totalnpgained.plus(10), 10), 1)));
 		rating = rating.plus(Decimal.minus(Decimal.log(player.sacrifice.factorshandler.totalfactorjuicegained.plus(10), 10), 1));
+		rating = rating.plus(player.overload.besttimesoverloaded);
 		return rating;
 	}
 }

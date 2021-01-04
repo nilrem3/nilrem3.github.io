@@ -9,14 +9,35 @@ var factorshandler = {
 		new factor("Multiply NP by base juice multipler ^0.5", function(){return Decimal.pow(player.sacrifice.factorshandler.baseJuiceMultiplier, 0.5);}, true),
 		new factor("Multiply Click Power by base juice multiplier ^1.5", function(){return Decimal.pow(player.sacrifice.factorshandler.baseJuiceMultiplier, 1.5);}, true),
 		new factor("Multiply Starting Number by base juice multiplier ^2", function(){return Decimal.pow(player.sacrifice.factorshandler.baseJuiceMultiplier, 2);}, true),
-		new factor("Multiply Multiplier Value by base juice multiplier ^0.1", function(){return Decimal.pow(player.sacrifice.factorshandler.baseJuiceMultiplier, 0.1);}, true),
+		new factor("Multiply Multiplier Strength by base juice multiplier ^0.1", function(){return Decimal.pow(player.sacrifice.factorshandler.baseJuiceMultiplier, 0.1);}, true),
 		new factor("Multiply Factor Juice Gain by Factorizers bought", function(){return player.sacrifice.factorshandler.factorizersbought;}, true)//did some math and this one is way too powerful if you can put more than 1 factorizer in it, so it's gonna have to cap out at 1
 	],
 	get factorJuicePerSecond(){
-		juice = new Decimal(0.01);
+		juice = new Decimal(0.025);
 		juice = juice.mul(this.factors[5].bonus);
 		juice = juice.mul(Decimal.pow(player.sacrifice.timessacrificedthisoverload, new Decimal(0.33)));
-		juice = juice.mul(player.achievementshandler.factorJuiceMult);
+		juice = juice.mul(player.achievementshandler.achievementBonus("factor juice", true));
+		if(player.overload.overloadupgradetable.columns[2][3].bought){
+			juice = juice.mul(Decimal.log(player.sacrifice.numericpoints.plus(10), 10));
+		}
+		if(player.overload.overloadupgradetable.columns[3][1].bought){
+			var havenoprodsormults = true;
+			for(var i = 0; i < player.producers.length; i++){
+				if(player.producers[i].amount >= 1){
+					havenoprodsormults = false;
+					break;
+				}
+			}
+			for(var i = 0; i < player.multipliers.length; i++){
+				if(player.multipliers[i].amount >= 1){
+					havenoprodsormults = false;
+					break;
+				}
+			}
+			if(havenoprodsormults){
+				juice = juice.mul(10);
+			}
+		}
 		return juice;
 	},
 	get nextFactorizerCost(){
@@ -25,19 +46,21 @@ var factorshandler = {
 		return ret;
 	},
 	get baseJuiceMultiplier(){
+		if(player.overload.challenges[6].active){
+			return new Decimal(1);
+		}
 		mult = Decimal.log(this.factorjuice.plus(10), 10);
 		return mult;
 	},
 	get canBuyFactorizer(){
+		if(player.overload.challenges[3].active){
+			return false;
+		}
 		return player.sacrifice.numericpoints.gte(this.nextFactorizerCost);
 	},
 	unlock(){
 		if(player.sacrifice.numericpoints.gte(new Decimal(1000))){
-			this.factorizers = this.factorizers.plus(new Decimal(1));
-			this.factorizersbought = this.factorizersbought.plus(new Decimal(1));
-			document.getElementById("unlockfactors").style.display = "none";
-			this.unlocked = true;
-			game.unlockmenu("factorsmenubutton");
+			this.doTheStuffThatHappensOnUnlock();
 			player.sacrifice.numericpoints = player.sacrifice.numericpoints.sub(new Decimal(1000));
 		}
 	},
@@ -54,6 +77,13 @@ var factorshandler = {
 		for(var i = 0; i < this.factors.length; i++){
 			this.factors[i].numbought = new Decimal(0);
 		}
+	},
+	doTheStuffThatHappensOnUnlock(){
+		this.factorizers = this.factorizers.plus(new Decimal(1));
+			this.factorizersbought = this.factorizersbought.plus(new Decimal(1));
+			document.getElementById("unlockfactors").style.display = "none";
+			this.unlocked = true;
+			game.unlockmenu("factorsmenubutton");
 	}
 	
 }

@@ -1,0 +1,184 @@
+body{
+	background-color: black;
+}
+.displaytext{
+	color: white;
+}
+#multsandprods{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+#sacrificemaxupgrades{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+.columndisplay{
+	display: flex;
+	flex-direction: column;
+}
+#mainmenuselect{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+.menubutton{
+	display: none;
+}
+.achievementdisplay{
+	padding: 10px;
+	padding-bottom: 20px;
+	border: solid 3px;
+	border-color: #555555;
+	width: 200px;
+	height: 200px;
+}
+.completeachievement{
+	border-color: #00ff00;
+	background-color: #404040;
+}
+#statisticssubmenuselect{
+	display: flex;
+	flex-direction: row;
+}
+#statisticsdisplay{
+	display: flex;
+	flex-direction: column;
+}
+.factordisplay {
+	display: flex;
+	flex-direction: row;
+	height: 50px;
+	border: solid 3px;
+	padding: 10px;
+	margin: 5px;
+	border-color: #a88d32;
+	align-items: center;
+}
+.factordisplay > *{
+	margin: 5px;
+}
+button .sacrificecolored{
+	
+}
+.factorcolored{
+	border: solid 3px #a88d32;
+}
+button{
+	border-radius: 3px;
+}
+button:hover{
+	border-radius: 0px;
+}
+#factorizersinfodisplay{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.lockedfactor{
+	display: none;
+}
+.factorcoloredtext{
+	color: #a88d32;
+}
+.sacrificecolored{
+	border: solid 3px #b8125a;
+}
+.sacrificecoloredtext{
+	color: #b8125a;
+}
+.overloadupgrade{
+	width: 200px;
+	height: 120px;
+	border: solid 3px;
+	border-color: #800000;
+	border-radius: 5px;
+	text-align: center;
+	margin: 5px;
+	margin-right: 10px;
+	margin-left: 10px;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+}
+.purchasedoverloadupgrade{
+	background-color: #333333;
+}
+.overloadtable{
+	display: flex;
+	flex-direction: row;
+}
+.overloadtablecolumn{
+	display: flex;
+	flex-direction: column;
+}
+.affordableoverloadupgrade:hover{
+	background-color: #FFFFFF;
+	color: black;
+}
+.overloadcoloredtext{
+	color: #800000;
+}
+.overloadcolored{
+	border: solid 3px #800000;
+}
+.overloadupgrade:hover{
+	border-radius: 0px;
+}
+#overloadbutton{
+	background-color: #808080;
+	width: 200px;
+	height: 100px;
+}
+.overloadsubmenubutton{
+	background-color: #808080;
+}
+.lockedsacrificeupgrade{
+	display: none;
+}
+.overloadmilestone{
+	border: solid 1px white;
+	border-radius: 10px;
+	color: white;
+	display: flex;
+	flex-direction: row;
+	padding: 10px;
+	justify-content: flex-start;
+	align-items: center;
+	margin: 5px;
+}
+.unlockedoverloadmilestone{
+	background-color: #800000;
+	
+}
+.marginleft10{
+	margin-left: 10px;
+}
+.hidden{
+	display: none;
+}
+.challengedisplay{
+	border: solid 3px #800000;
+	border-radius: 10px;
+	width: 300px;
+	height: 200px;
+	margin: 10px;
+	padding: 10px;
+	background-color: black;
+}
+.activechallenge{
+	background-color: white;
+	color: #800000;
+}
+#challenges{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 700px;
+}
+#achievementtable{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}

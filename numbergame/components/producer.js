@@ -15,7 +15,7 @@ Vue.component('producerdisplay', {
 	template: 
 	`<div class="producerdisplay">
 		<span class="displaytext">Producer {{producer.tier}}: {{format(producer.amount)}}</span>
-		<button @click="producer.buy()">{{producer.buttontext}}</button>
+		<button @click="producer.buy(1)">{{producer.buttontext}}</button>
 		<span class="displaytext"> +{{format(producer.productionPerSecond)}} Number/s</span>
 	</div>`
 })

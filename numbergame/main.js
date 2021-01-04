@@ -30,7 +30,7 @@ var game = new Vue({
 		},
 		click(){
 			this.addnumber(player.numberperclick);
-			player.clicks += 1;
+			player.clicks = player.clicks.plus(1);
 		}
 	}
 });
@@ -42,11 +42,35 @@ game.unlockmenu("optionsmenubutton")
 game.unlockmenu("achievementsmenubutton")
 game.unlockmenu("statisticsmenubutton")
 //debug
-game.unlockmenu("sacrificemenubutton")
 function format(amount){
 	if(new Decimal(amount).lessThan(new Decimal(1000))){
-		return new Decimal(amount).toPrecision(3).toString();
+		return new Decimal(amount).toPrecision(4).toString();
 
 	}
-	return numberformat.format(amount, {backend: 'decimal.js', format:'scientific', Decimal: Decimal, sigfigs:5});
+	return numberformat.format(amount, {backend: 'decimal.js', format:'scientific', Decimal: Decimal, sigfigs:4});
+}
+function timeformat(amount){
+	var hours = Decimal.floor(amount.div(3600));
+	amount = amount.sub(hours.mul(3600));
+	var minutes = Decimal.floor(amount.div(60));
+	amount = amount.sub(minutes.mul(60));
+	ret = "";
+	if(hours.gt(0)){
+		if(hours.gt(1)){
+			ret += format(hours) + " hours";
+		}else{
+			ret += "1 hour";
+		}
+	}
+	if(minutes.gt(0)){
+		if(minutes.gt(1)){
+			ret += " " + format(minutes) + " minutes";
+		}else{
+			ret += " 1 minute";
+		}
+	}
+	if(amount.gt(0)){
+			ret += " " + format(amount) + " seconds";
+	}
+	return ret;
 }

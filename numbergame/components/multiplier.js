@@ -15,6 +15,6 @@ Vue.component('multiplierdisplay', {
 	template: 
 	`<div class="multiplierdisplay">
 		<span class="displaytext">Multiplier {{multiplier.tier}}: x{{format(multiplier.value)}}</span>
-		<button @click="multiplier.buy()">{{multiplier.buttontext}}</button>
+		<button @click="multiplier.buy(1)">{{multiplier.buttontext}}</button>
 	</div>`
 })
