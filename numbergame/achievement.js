@@ -76,7 +76,7 @@ var achievementshandler = {
 	new achievement("Zoomier", "make 1e5 number per second", "number from producers", new Decimal(1.05), true, 3),
 	new achievement("Auger", "sacrifice 10 times", "np gain", new Decimal(1.05), true, 3),
 	new achievement("Sacrificial Expert", "Sacrifice 25 times", "np gain", new Decimal(1.05), true, 4),
-	new achievement("Perfect Sacrifice", "Sacrifice with 24 of each producer", "np gain", new Decimal(1.1), true, 2),
+	new achievement("Perfect Sacrifice", "Sacrifice with 24 of each producer 1-5", "np gain", new Decimal(1.1), true, 2),
 	new achievement("Maximum Multiplication", "Get 6 of each multiplier 1-5", "multiplier strength", new Decimal(0.05), false, 3),//24
 	new achievement("Minimum Multiplication", "Sacrifice without having any multipliers, and having at least 1 producer 5.", "number", new Decimal(1.05), true, 3),
 	new achievement("Overloaded", "Have 6 of each multiplier and 24 of each producer 1-5", "number", new Decimal(1.05), true, 3),//this one doesn't have an unlock yet but the reward is in
@@ -134,13 +134,17 @@ var achievementshandler = {
 	new achievement("Selling Quilts at Discount Price", "Sacrifice for 2500 NP at once", "np gain", new Decimal(1.05), true, 6),
 	new achievement("Technologically impaired", "Sacrifice for 10000 NP at once", "np gain", new Decimal(1.05), true, 7),
 	new achievement("milkin' cows at 4:30", "Sacrifice for 25000 NP at once", "np gain", new Decimal(1.05), true, 7),
-	new achievement("Huger Number", "Have 1e16 number", "number from producers", new Decimal(1.1), true, 7),//reward and unlock not implemented yet from here on
-	new achievement("Crazier Production", "Make a total of 1e16 number", "number", new Decimal(1.05), true, 7)
+	new achievement("Huger Number", "Have 1e16 number", "number from producers", new Decimal(1.1), true, 7),
+	new achievement("Crazier Production", "Make a total of 1e16 number", "number", new Decimal(1.05), true, 7),//82
+	new achievement("Zoomiererer", "make 1e8 number per second", "number from producers", new Decimal(1.05), true, 6),//reward and unlock not implemented yet from here on
+	new achievement("Zoomiererer", "make 1e9 number per second", "number from producers", new Decimal(1.05), true, 7),
+	new achievement("Piousereresterester", "Gain a total of 2500000 NP", "np gain", new Decimal(1.05), true, 7),
+	new achievement("Piousereresteresterer", "Gain a total of 1000000 NP", "np gain", new Decimal(1.05), true, 7)
 	//stretch once achievement "bursting at the seams"
 	],
 	checkAchievementVisibility(){
 		this.makevisible(1);
-		if(player.tier >= 5){
+		if(player.tier.gte(5)){
 			this.makevisible(2);
 		}
 		if(player.sacrifice.timessacrificed > 0){
@@ -155,10 +159,10 @@ var achievementshandler = {
 		if(player.sacrifice.factorshandler.factorizersbought.gte(2)){
 			this.makevisible(6);
 		}
-		if(player.overload.timesoverloaded.gte(1)){
+		if(player.overload.besttimesoverloaded.gte(1)){
 			this.makevisible(7);
 		}
-		if(player.highesttier >= 10){
+		if(player.highesttier.gte(10)){
 			this.makevisible(8);
 		}
 	},

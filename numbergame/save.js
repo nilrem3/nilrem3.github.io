@@ -204,6 +204,7 @@ function loaddata(savedata, game){
 			game.player.clickingmultiplier.bought = new Decimal(savedata.data.clickingmultiplier.bought);
 		}
 		game.player.sacrifice.maxclickmultupgrade.amount = new Decimal(savedata.data.sacrifice.maxclickmultupgrade.amount);
+		game.player.overload.unlocked = savedata.data.overload.unlocked;
 		game.player.overload.timesoverloaded = new Decimal(savedata.data.overload.timesoverloaded);
 		game.player.overload.besttimesoverloaded = new Decimal(savedata.data.overload.besttimesoverloaded);
 		game.player.overload.overloadPoints = new Decimal(savedata.data.overload.overloadPoints);

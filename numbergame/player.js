@@ -109,7 +109,7 @@ var player = {
 			this.clickingmultiplier = new multiplier(new Decimal(10), new Decimal(5), null);
 		}
 		//sacrifice upgrades:
-		sacrifice.addmaxupgrades(this.tier.sub(1));
+		sacrifice.addmaxupgrades(this.tier);
 		//starting prods and mults
 		if(this.overload.overloadupgradetable.columns[4][0].bought && this.producers.length >= 1){
 			this.producers[0].amount = new Decimal(1);
