@@ -80,7 +80,7 @@ var achievementshandler = {
 	new achievement("Maximum Multiplication", "Get 6 of each multiplier 1-5", "multiplier strength", new Decimal(0.05), false, 3),//24
 	new achievement("Minimum Multiplication", "Sacrifice without having any multipliers, and having at least 1 producer 5.", "number", new Decimal(1.05), true, 3),
 	new achievement("Overloaded", "Have 6 of each multiplier and 24 of each producer 1-5", "number", new Decimal(1.05), true, 3),//this one doesn't have an unlock yet but the reward is in
-	new achievement("Meaningless Wealth", "Have at least 1e5 number in tier 2", "number", new Decimal(1.1). true, 3),
+	new achievement("Meaningless Wealth", "Have at least 1e5 number in tier 2", "number", new Decimal(1.1), true, 3),
 	new achievement("Organized", "Have 1 of producer 1, 2 of producer 2, 3 of producer 3, etc. up to 5", "number", new Decimal(1.1), true, 3),//28
 	new achievement("Huge Number", "Have 1e10 Number", "number from producers", new Decimal(1.1), true, 3),
 	new achievement("Production", "Make a total of 1e6 number", "number", new Decimal(1.05), true, 1),
