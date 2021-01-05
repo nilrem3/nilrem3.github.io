@@ -80,7 +80,7 @@ var achievementshandler = {
 	new achievement("Maximum Multiplication", "Get 6 of each multiplier 1-5", "multiplier strength", new Decimal(0.05), false, 3),//24
 	new achievement("Minimum Multiplication", "Sacrifice without having any multipliers, and having at least 1 producer 5.", "number", new Decimal(1.05), true, 3),
 	new achievement("Overloaded", "Have 6 of each multiplier and 24 of each producer 1-5", "number", new Decimal(1.05), true, 3),//this one doesn't have an unlock yet but the reward is in
-	new achievement("Meaningless Wealth", "Have at least 1e5 number in tier 2", "1.05x all number in tiers 4 and below", 3),
+	new achievement("Meaningless Wealth", "Have at least 1e5 number in tier 2", "number", new Decimal(1.1). true, 3),
 	new achievement("Organized", "Have 1 of producer 1, 2 of producer 2, 3 of producer 3, etc. up to 5", "number", new Decimal(1.1), true, 3),//28
 	new achievement("Huge Number", "Have 1e10 Number", "number from producers", new Decimal(1.1), true, 3),
 	new achievement("Production", "Make a total of 1e6 number", "number", new Decimal(1.05), true, 1),
@@ -93,16 +93,16 @@ var achievementshandler = {
 	new achievement("Piouserer", "Gain a total of 5000 NP", "np gain", new Decimal(1.05), true, 3),
 	new achievement("Piousererest", "Gain a total of 10000 NP", "np gain", new Decimal(1.05), true, 3),
 	new achievement("Piousererseter", "Gain a total of 25000 NP.  Did you think the last one was the end?", "np gain", new Decimal(1.05), true, 4),//39
-	new achievement("Damp", "Gain a total of 10 Factor Juice", "factor juice", new Decimal(1.05), true, 5),
-	new achievement("Moist", "Gain a total of 100 Factor Juice", "factor juice", new Decimal(1.05), true, 5),
-	new achievement("Soggy", "Gain a total of 1000 Factor Juice", "factor juice", new Decimal(1.05), true, 5),
-	new achievement("Wet", "Gain a total of 1e4 Factor Juice", "factor juice", new Decimal(1.05), true, 5),
-	new achievement("Sopping", "Gain a total of 1e5 Factor Juice", "factor juice", new Decimal(1.05), true, 5),
-	new achievement("Soaked", "Gain a total of 1e6 Factor Juice", "factor juice", new Decimal(1.05), true, 6),
-	new achievement("Gushing", "Gain a total of 1e7 Factor Juice", "factor juice", new Decimal(1.05), true, 6),//Flowing, Pouring, Dripping, Drizzling, Roaring River(not necessarily in that order) 
+	new achievement("Damp", "Gain a total of 10 Factor Juice", "factor juice", new Decimal(1.1), true, 5),
+	new achievement("Moist", "Gain a total of 100 Factor Juice", "factor juice", new Decimal(1.1), true, 5),
+	new achievement("Soggy", "Gain a total of 1000 Factor Juice", "factor juice", new Decimal(1.1), true, 5),
+	new achievement("Wet", "Gain a total of 1e4 Factor Juice", "factor juice", new Decimal(1.1), true, 5),
+	new achievement("Sopping", "Gain a total of 1e5 Factor Juice", "factor juice", new Decimal(1.1), true, 5),
+	new achievement("Soaked", "Gain a total of 1e6 Factor Juice", "factor juice", new Decimal(1.1), true, 6),
+	new achievement("Gushing", "Gain a total of 1e7 Factor Juice", "factor juice", new Decimal(1.1), true, 6),//Flowing, Pouring, Dripping, Drizzling, Roaring River(not necessarily in that order) 
 	new achievement("Factorized", "Have 1 Factorizer", "number", new Decimal(1.05), true, 5),
 	new achievement("Twice as Factorized", "Have 2 Factorizers", "number", new Decimal(1.05), true, 5),
-	new achievement("TriFactorizer", "Have 3 Factorizers", "number", new Decimal(1.05), true, 6), 
+	new achievement("TriFactorizer", "Have 3 Factorizers", "number", new Decimal(1.1), true, 6), 
 	new achievement("Quadrofactor", "Have 4 Factorizers", "factor juice", new Decimal(1.05), true, 7),//50
 	new achievement("Zoomierer", "make 1e6 number per second", "number from producers", new Decimal(1.05), true, 5),
 	new achievement("Zoomiererer", "make 1e7 number per second", "number from producers", new Decimal(1.05), true, 6),

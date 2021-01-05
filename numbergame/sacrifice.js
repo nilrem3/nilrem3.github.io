@@ -11,7 +11,7 @@ var sacrifice = {
 	repeatableclickupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x2 Click Power"),
 	repeatablestartingnumberupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "+5 Starting Number"),
 	repeatablenumbermultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.5 number from all producers"),
-	repeatablenpmultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.2 NP from sacrifice"),
+	repeatablenpmultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.3 NP from sacrifice"),
 	generatemaxproducerupgrade(tier){
 		return new sacrificeupgrade(Decimal.mul(10, Decimal.pow(2, tier - 1)), new Decimal(1.45), new Decimal(13), "Increase the maximum of Producer " + tier);//13 instead of 14 to account for the achievement that gives +1
 	},
@@ -39,7 +39,7 @@ var sacrifice = {
 			value = value.plus(Decimal.pow(player.number, 0.2));
 		}
 		value = value.mul(player.achievementshandler.achievementBonus("np gain", true));
-		value = value.times(Decimal.pow(1.2, sacrifice.repeatablenpmultupgrade.amount));
+		value = value.times(Decimal.pow(1.3, sacrifice.repeatablenpmultupgrade.amount));
 		value = value.mul(player.sacrifice.factorshandler.factors[1].bonus);
 		return value;
 	},

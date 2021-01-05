@@ -9,13 +9,13 @@ var factorshandler = {
 		new factor("Multiply NP by base juice multipler ^0.5", function(){return Decimal.pow(player.sacrifice.factorshandler.baseJuiceMultiplier, 0.5);}, true),
 		new factor("Multiply Click Power by base juice multiplier ^1.5", function(){return Decimal.pow(player.sacrifice.factorshandler.baseJuiceMultiplier, 1.5);}, true),
 		new factor("Multiply Starting Number by base juice multiplier ^2", function(){return Decimal.pow(player.sacrifice.factorshandler.baseJuiceMultiplier, 2);}, true),
-		new factor("Multiply Multiplier Strength by base juice multiplier ^0.1", function(){return Decimal.pow(player.sacrifice.factorshandler.baseJuiceMultiplier, 0.1);}, true),
-		new factor("Multiply Factor Juice Gain by Factorizers bought", function(){return player.sacrifice.factorshandler.factorizersbought;}, true)//did some math and this one is way too powerful if you can put more than 1 factorizer in it, so it's gonna have to cap out at 1
+		new factor("Multiply Multiplier Strength by base juice multiplier ^0.1", function(){return Decimal.pow(player.sacrifice.factorshandler.baseJuiceMultiplier, 0.125);}, true),
+		new factor("Multiply Factor Juice Gain by Factorizers bought", function(){return player.sacrifice.factorshandler.factorizersbought;}, true)
 	],
 	get factorJuicePerSecond(){
 		juice = new Decimal(0.025);
 		juice = juice.mul(this.factors[5].bonus);
-		juice = juice.mul(Decimal.pow(player.sacrifice.timessacrificedthisoverload, new Decimal(0.33)));
+		juice = juice.mul(Decimal.pow(player.sacrifice.timessacrificedthisoverload, new Decimal(0.5)));
 		juice = juice.mul(player.achievementshandler.achievementBonus("factor juice", true));
 		if(player.overload.overloadupgradetable.columns[2][3].bought){
 			juice = juice.mul(Decimal.log(player.sacrifice.numericpoints.plus(10), 10));
