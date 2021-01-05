@@ -83,7 +83,7 @@ var overload = {
 			player.sacrifice.repeatablenumbermultupgrade = new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x2 number from all producers");
 			player.sacrifice.repeatablenpmultupgrade = new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.3 NP from sacrifice");
 		}
-		player.sacrifice.numericpoins = new Decimal(0);
+		player.sacrifice.numericpoints = new Decimal(0);
 		player.sacrifice.factorshandler.factorjuice = new Decimal(0);
 		player.sacrifice.timessacrificedthisoverload = new Decimal(0);
 		player.sacrifice.factorshandler.factorizersbought = new Decimal(0);
