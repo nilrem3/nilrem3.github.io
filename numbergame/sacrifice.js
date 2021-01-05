@@ -38,7 +38,7 @@ var sacrifice = {
 		if(player.overload.overloadupgradetable.columns[1][3].bought){
 			value = value.plus(Decimal.pow(player.number, 0.2));
 		}
-		value = value.mul(player.achievementshandler.achievementBonus("np", true));
+		value = value.mul(player.achievementshandler.achievementBonus("np gain", true));
 		value = value.times(Decimal.pow(1.2, sacrifice.repeatablenpmultupgrade.amount));
 		value = value.mul(player.sacrifice.factorshandler.factors[1].bonus);
 		return value;
