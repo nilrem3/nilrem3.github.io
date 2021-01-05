@@ -35,7 +35,7 @@ class producer {
 	
 	get production(){
 		num = this.baseproduction.mul(this.multiplier.value);
-		num = Decimal.mul(Decimal.pow(1.5, player.sacrifice.repeatablenumbermultupgrade.amount), num);
+		num = Decimal.mul(Decimal.pow(2, player.sacrifice.repeatablenumbermultupgrade.amount), num);
 		num = Decimal.mul(player.achievementshandler.achievementBonus("number from producers", true), num);
 		num = Decimal.mul(player.achievementshandler.achievementBonus("number", true), num);
 		num = Decimal.mul(player.sacrifice.factorshandler.factors[0].bonus, num);

@@ -75,12 +75,12 @@ var overload = {
 		if(this.overloadupgradetable.columns[3][3].bought){
 			player.sacrifice.repeatableclickupgrade = new sacrificeupgrade(new Decimal(50), new Decimal(3), null, "x2 Click Power");
 			player.sacrifice.repeatablestartingnumberupgrade = new sacrificeupgrade(new Decimal(50), new Decimal(3), null, "+5 Starting Number");
-			player.sacrifice.repeatablenumbermultupgrade = new sacrificeupgrade(new Decimal(50), new Decimal(3), null, "x1.5 number from all producers");
+			player.sacrifice.repeatablenumbermultupgrade = new sacrificeupgrade(new Decimal(50), new Decimal(3), null, "x2 number from all producers");
 			player.sacrifice.repeatablenpmultupgrade = new sacrificeupgrade(new Decimal(50), new Decimal(3), null, "x1.3 NP from sacrifice");
 		}else{
 			player.sacrifice.repeatableclickupgrade = new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x2 Click Power");
 			player.sacrifice.repeatablestartingnumberupgrade = new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "+5 Starting Number");
-			player.sacrifice.repeatablenumbermultupgrade = new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.5 number from all producers");
+			player.sacrifice.repeatablenumbermultupgrade = new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x2 number from all producers");
 			player.sacrifice.repeatablenpmultupgrade = new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.3 NP from sacrifice");
 		}
 		player.sacrifice.numericpoins = new Decimal(0);

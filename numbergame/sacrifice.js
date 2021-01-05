@@ -10,7 +10,7 @@ var sacrifice = {
 	maxclickmultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), new Decimal(3), "+1 max Clicking Multiplier"),
 	repeatableclickupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x2 Click Power"),
 	repeatablestartingnumberupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "+5 Starting Number"),
-	repeatablenumbermultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.5 number from all producers"),
+	repeatablenumbermultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x2 number from all producers"),
 	repeatablenpmultupgrade: new sacrificeupgrade(new Decimal(50), new Decimal(5), null, "x1.3 NP from sacrifice"),
 	generatemaxproducerupgrade(tier){
 		return new sacrificeupgrade(Decimal.mul(10, Decimal.pow(2, tier - 1)), new Decimal(1.45), new Decimal(13), "Increase the maximum of Producer " + tier);//13 instead of 14 to account for the achievement that gives +1
