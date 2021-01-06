@@ -13,6 +13,9 @@ var factorshandler = {
 		new factor("Multiply Factor Juice Gain by Factorizers bought", function(){return player.sacrifice.factorshandler.factorizersbought;}, true)
 	],
 	get factorJuicePerSecond(){
+		if(this.factorizersbought.lt(1)){
+			return new Decimal(0);
+		}
 		juice = new Decimal(0.025);
 		juice = juice.mul(this.factors[5].bonus);
 		juice = juice.mul(Decimal.pow(player.sacrifice.timessacrificedthisoverload, new Decimal(0.5)));
