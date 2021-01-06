@@ -188,6 +188,23 @@ var achievementshandler = {
 		return num;
 	},
 	achievementBonus(bonustype, ismult){
+		if(this.achievementBonusCache[bonustype]){
+			if(this.achievementBonusCache[bonustype].timesaccessed > 20){
+				this.calculateAchievementBonus(bonustype);
+			}else{
+				this.achievementBonusCache[bonustype].timesaccessed++;
+			}
+		}else{
+			this.calculateAchievementBonus(bonustype);
+		}
+		if(ismult){
+			return this.achievementBonusCache[bonustype]["mult"];
+		}else{
+			return this.achievementBonusCache[bonustype]["bonus"];
+		}
+	},
+	achievementBonusCache: {},
+	calculateAchievementBonus(bonustype){
 		var mult = new Decimal(1);
 		var bonus = new Decimal(0);
 		for(var i = 0; i < this.achievements.length; i++){
@@ -199,10 +216,6 @@ var achievementshandler = {
 				}
 			}
 		}
-		if(ismult){
-			return mult;
-		}else{
-			return bonus;
-		}
+		this.achievementBonusCache[bonustype] = {"mult": mult, "bonus": bonus, timesaccessed: 0};
 	}
 }
