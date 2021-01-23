@@ -1,0 +1,21 @@
+td{
+	border: solid 2px black;
+	padding: 4px;
+}
+#materialtableheader{
+	border: solid 40px white;
+}
+#space{
+	border: 5px solid white;
+}
+#speedbonuses{
+	display: flex;
+	flex-direction: column;
+}
+.columns{
+	display: flex;
+	flex-direction: row;
+}
+.techtierbonuses{
+	border: 2px solid black;
+}

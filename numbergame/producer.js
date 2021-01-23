@@ -17,7 +17,10 @@ class producer {
 		else return this.cost.lte(player.number);
 	}
 	get cost(){
-		return new Decimal(Decimal.mul(this.basecost, Decimal.pow(1 + (0.2 * this.tier), this.bought)));
+		return new Decimal(Decimal.mul(this.basecost, Decimal.pow(this.scaling, this.bought)));
+	},
+	get scaling(){
+		return new Decimal(1).plus(this.tier).pow(0.25);//this should make producers and multipliers cost the same at 6/24. need to rebalance other things accordingly
 	}
 	buy(num){
 		num = Decimal.floor(num);
@@ -27,7 +30,7 @@ class producer {
 		if(this.numaffordable.lt(num)){
 			this.buy(this.numaffordable);
 		}else{
-			player.number = player.number.sub(this.cost.mul(new Decimal(1).sub(new Decimal(1).plus(new Decimal(0.2).mul(this.tier)).pow(num))).div(new Decimal(1).sub(new Decimal(1).plus(new Decimal(0.2).mul(this.tier)))));
+			player.number = player.number.sub(this.cost.mul(new Decimal(1).sub(this.scaling).pow(num)).div(new Decimal(1).sub(this.scaling)));
 			this.amount = this.amount.plus(num);
 			this.bought = this.bought.plus(num);
 		}
