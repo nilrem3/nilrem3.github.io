@@ -988,12 +988,20 @@ var helper1 = new Worker("worker.js");
 helper1.onmessage = function(e){
 	manager.do_elo(e.ai1, e.ai2, e.tie);
 	console.log("helper game finished!");
-	first = choose(manager.ais);
-	second = choose(manager.ais);
+	var ailist = []
+	for(const prop in this.ais){
+		ailist.push(this.ais[prop].name);
+	}
+	var first = choose(ailist);
+	var second = choose(ailist);
 	console.log("starting helper game: " + first.name + " vs " + second.name);
 	helper1.postMessage(choose(manager.ais), choose(manager.ais));
 }
-var first = choose(manager.ais);
-var second = choose(manager.ais);
+var ailist = []
+for(const prop in this.ais){
+	ailist.push(this.ais[prop].name);
+}
+var first = choose(ailist);
+var second = choose(ailist);
 console.log("starting helper game: " + first.name + " vs " + second.name);	
 helper1.postMessage(choose(manager.ais), choose(manager.ais));
