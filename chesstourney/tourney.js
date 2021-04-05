@@ -189,6 +189,14 @@ class tourneymanager{
 	}
 	continuoustourney(){
 		this.continuous = true;
+		var ailist = [];
+		for(const prop in manager.ais){
+			ailist.push(manager.ais[prop].name);
+		}
+		var first = choose(ailist);
+		var second = choose(ailist);
+		console.log("starting helper game: " + first.name + " vs " + second.name);	
+helper1.postMessage(choose(manager.ais), choose(manager.ais));
 	}
 	stopcontinuoustourney(){
 		this.continuous = false;
@@ -997,11 +1005,3 @@ helper1.onmessage = function(e){
 	console.log("starting helper game: " + first.name + " vs " + second.name);
 	helper1.postMessage(choose(manager.ais), choose(manager.ais));
 }
-var ailist = []
-for(const prop in manager.ais){
-	ailist.push(manager.ais[prop].name);
-}
-var first = choose(ailist);
-var second = choose(ailist);
-console.log("starting helper game: " + first.name + " vs " + second.name);	
-helper1.postMessage(choose(manager.ais), choose(manager.ais));
