@@ -989,8 +989,8 @@ helper1.onmessage = function(e){
 	manager.do_elo(e.ai1, e.ai2, e.tie);
 	console.log("helper game finished!");
 	var ailist = []
-	for(const prop in this.ais){
-		ailist.push(this.ais[prop].name);
+	for(const prop in manager.ais){
+		ailist.push(manager.ais[prop].name);
 	}
 	var first = choose(ailist);
 	var second = choose(ailist);
@@ -998,8 +998,8 @@ helper1.onmessage = function(e){
 	helper1.postMessage(choose(manager.ais), choose(manager.ais));
 }
 var ailist = []
-for(const prop in this.ais){
-	ailist.push(this.ais[prop].name);
+for(const prop in manager.ais){
+	ailist.push(manager.ais[prop].name);
 }
 var first = choose(ailist);
 var second = choose(ailist);
