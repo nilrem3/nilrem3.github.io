@@ -1,3 +1,4 @@
+importScripts("chess.js");
 class tourneyhelper{
 	constructor(){
 		this.gameover = true;
