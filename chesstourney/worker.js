@@ -12,7 +12,6 @@ class tourneyhelper{
 		this.ai2 = this.ai2;
 		this.gameover = false;
 		this.movesleft = 0;
-		drawmanager.draw();
 	}
 	do_move(){
 		if(this.gameover){
