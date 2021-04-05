@@ -1,7 +1,7 @@
 let resources = {
 	
 }
-let maxtier = 8;
+let maxtier = 9;
 let tilesunlocked = 1;
 tiernames = {
 	1: "newbies landing 1", 
@@ -12,8 +12,7 @@ tiernames = {
 	6: "flesh world 2",
 	7: "flesh world 3",
 	8: "flesh world 4",
-	9: "tronne planet 1",
-	10: "tronne planet 2"
+	9: "tronne planet 1"
 	
 }
 class resource{
@@ -138,10 +137,10 @@ function bonusinputhtml(){
 	Input Efficiency Bonuses Here
 	</td></tr></table>`;
 	for(let tier = 1; tier <= maxtier; tier ++){
-		html += tiernames[tier] + `<button onclick="document.getElementById('materials`+tier+`').style.display='none';">hide</button><button onclick="document.getElementById('materials`+tier+`').style.display = 'inline';">show</button><br><div id="materials` + tier + `" class="techtierbonuses"><table>`;
+		html += tiernames[tier] + `<button onclick="document.getElementById('materials`+tier+`').style.display='none';">hide</button><button onclick="document.getElementById('materials`+tier+`').style.display = 'flex';">show</button><br><div id="materials` + tier + `" class="techtierbonuses"><table>`;
 		for(const resource in resources){
 			if(resources[resource].tier == tier){
-				html += `<tr><td>`+resource+`</td><td><input type="number" step="any" id="` + resource + `speedbonus" value="1"></input></td><td><input type="number" step="any" id="` + resource + `prodbonus" value="1"></input></td><td><input type="number" step="any" id="` + resource + `effbonus" value="1"></input></td></tr>`;
+				html += `<tr><td><div class="resourcenamelabel">`+resource+`</div></td><td><input type="number" step="any" id="` + (resource + "speedbonus") + `" value="1"></input></td><td><input type="number" step="any" id="` + resource + `prodbonus" value="1"></input></td><td><input type="number" step="any" id="` + resource + `effbonus" value="1"></input></td></tr>`;
 			}
 		}
 		html += `</table></div>`
@@ -261,5 +260,10 @@ new resource("flesh-assisted reactive transport solution", 30, {"meat bar": 300,
 new resource("the biocomputer", 30, {"bio-chip": 3, "crappy hard drive": 1000, "bone frame": 10}, 8);
 new resource("the flesh rocket", 30, {"the biocomputer": 1, "flesh-assisted reactive transport solution": 25, "flesh engine": 6, "metal frame": 50000, "bone frame": 100}, 8);
 new resource("tier 4 flesh juice", 30, {"the biocomputer": 1, "flesh engine":1, "the flesh rocket": 1}, 8); 
+new resource("technetium ore", 5, {}, 9);
+new resource("technetium bar", 10, {"technetium ore": 2}, 9);
+new resource("plastic ore", 5, {}, 9);
+new resource("plastic bar", 10, {"plastic ore": 2}, 9);
+new resource("tech alloy", 10, {"iron bar": 10000, "copper bar": 10000, "bone beam": 1000, "meat bar": 3000, "technetium bar": 2, "plastic bar": 2}, 9);
 document.getElementById("targetmaterialselection").innerHTML = targetmaterialselectionhtml();
 document.getElementById("bonuses").innerHTML = bonusinputhtml();
