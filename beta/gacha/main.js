@@ -85,31 +85,42 @@ game = new jgame(document.getElementById("test-canvas"),
 	},
 	onKeyDown: function(keycode){
 		if(this.gamestate.mode == "world"){
+			let moved = false;
 			switch(keycode){
 				case 38:
 					//up arrow
 					if(get_tile_at_location(this.gamestate.persistent_data.world_data.zone, this.gamestate.persistent_data.world_data.position.x, this.gamestate.persistent_data.world_data.position.y - 1).walkable){
 						this.gamestate.persistent_data.world_data.position.y -= 1;
+						moved = true;
 					}
 					break;
 				case 37:
 					//left arrow
 					if(get_tile_at_location(this.gamestate.persistent_data.world_data.zone, this.gamestate.persistent_data.world_data.position.x - 1, this.gamestate.persistent_data.world_data.position.y).walkable){
 						this.gamestate.persistent_data.world_data.position.x -= 1;
+						moved = true;
 					}
 					break;
 				case 39:
 					//right arrow
 					if(get_tile_at_location(this.gamestate.persistent_data.world_data.zone, this.gamestate.persistent_data.world_data.position.x + 1, this.gamestate.persistent_data.world_data.position.y).walkable){
 						this.gamestate.persistent_data.world_data.position.x += 1;
+						moved = true;
 					}
 					break;
 				case 40:
 					//up arrow
 					if(get_tile_at_location(this.gamestate.persistent_data.world_data.zone, this.gamestate.persistent_data.world_data.position.x, this.gamestate.persistent_data.world_data.position.y + 1).walkable){
 						this.gamestate.persistent_data.world_data.position.y += 1;
+						moved = true;
 					}
 					break;
+			}
+			if(moved){
+				let tile = get_tile_at_location(this.gamestate.persistent_data.world_data.zone, this.gamestate.persistent_data.world_data.position.x, this.gamestate.persistent_data.world_data.position.y);
+				if(tile.type == "trigger"){
+					tile.callback();
+				}
 			}
 		}
 	}
@@ -175,16 +186,28 @@ class map_tile{
 	constructor(type, xpos, ypos){
 		this.x = xpos;
 		this.y = ypos;
-		this.type = type;
+		this._type = type;
 	}
 	get walkable(){
 		return game_assets.tile_data.walkable[this.type] ?? true;
 	}
+	get type(){
+		return this._type;
+	}
 }
 class door extends map_tile{
 	constructor(xpos, ypos){
-		super("door", xpos, ypos);
+		super("closed door", xpos, ypos);
 		this.opened = false;
+	}
+	get walkable(){
+		return this.opened;
+	}
+	get type(){
+		if(this.opened){
+			return "open door";
+		}
+		return "closed door";
 	}
 }
 class trigger extends map_tile{
@@ -193,10 +216,20 @@ class trigger extends map_tile{
 		this.callback = callback;
 	}
 }
+class combat_trigger extends trigger{
+	constructor(get_enemies_callback, xpos, ypos){
+		super(function(){ start_combat(get_enemies_callback(game.game.gamestate));}, xpos, ypos);
+		this._type = "combat";
+	}
+}
 function text_to_tile_dicts(t){
 	var lines = t.toLowerCase().split('|');
+	var longestline = 0;
+	for(let l = 0; l < lines.length; l++){
+		longestline = Math.max(longestline, lines[l].length);
+	}
 	var tiles = {}
-	for(let x = 0; x < lines[0].length; x++){
+	for(let x = 0; x < longestline; x++){
 		tiles[x] = {}
 		for(let y = 0; y < lines.length; y++){
 			var newtile = undefined;
@@ -222,4 +255,16 @@ function get_tile_at_location(areacode, x, y){
 	}
 	return new map_tile("empty", x, y);
 }
-new map_zone("starting", text_to_tile_dicts("wwwww|wfffw|wfffw|wfffw|wwwww"), {"wall": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Hadrian%27s_wall_at_Greenhead_Lough.jpg/181px-Hadrian%27s_wall_at_Greenhead_Lough.jpg", "floor": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Parquet_flooring_in_Mus%C3%A9e_des_arts_d%C3%A9coratifs_de_Strasbourg.jpg/174px-Parquet_flooring_in_Mus%C3%A9e_des_arts_d%C3%A9coratifs_de_Strasbourg.jpg", "empty": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Nothing.jpg"});
+function start_combat(enemies){
+	
+}
+new map_zone("starting", text_to_tile_dicts("wwwwwwwww|wfffwwwww|wfffffff|wfffwfwwfw|wwwwwfwwfw|eeeewfwwfw|eeeewffffw|eeeewwwwww"), {"wall": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Hadrian%27s_wall_at_Greenhead_Lough.jpg/181px-Hadrian%27s_wall_at_Greenhead_Lough.jpg", 
+																																	"floor": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Parquet_flooring_in_Mus%C3%A9e_des_arts_d%C3%A9coratifs_de_Strasbourg.jpg/174px-Parquet_flooring_in_Mus%C3%A9e_des_arts_d%C3%A9coratifs_de_Strasbourg.jpg", 
+																																	"empty": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Nothing.jpg",
+																																	"closed door": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Qila-i-Kuhna_mosque_side_door.jpg/214px-Qila-i-Kuhna_mosque_side_door.jpg",
+																																	"open door": "https://images.squarespace-cdn.com/content/v1/59d195afcf81e0a1cd99b680/1601019159275-XX23OOK1UW4E1V7QEOYY/ke17ZwdGBToddI8pDm48kDHPSfPanjkWqhH6pl6g5ph7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0mwONMR1ELp49Lyc52iWr5dNb1QJw9casjKdtTg1_-y4jz4ptJBmI9gQmbjSQnNGng/matthew-t-rader-zq4UnZoy5AQ-unsplash.jpg?format=1500w",
+																																	"trigger": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Arcade_video_game_buttons.jpg/220px-Arcade_video_game_buttons.jpg",
+																																	"combat": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Villainc.svg/220px-Villainc.svg.png"});
+game_assets.map_areas["starting"].tiles[8][2] = new door(8, 2);
+game_assets.map_areas["starting"].tiles[8][3] = new trigger(function(){game_assets.map_areas["starting"].tiles[8][2].opened = true;}, 8, 3);
+game_assets.map_areas["starting"].tiles[7][6] = new combat_trigger(function(gamestate){}, 7, 6);
