@@ -198,3 +198,4 @@ var player = {
 
 	
 }
+var defaultplayer = player;

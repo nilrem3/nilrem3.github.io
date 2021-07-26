@@ -148,10 +148,15 @@ game = new jgame(document.getElementById("test-canvas"),
 					game.draw.rect(new rectangle(50 * a, 50, 50, 10), [0, 0, 0]);
 				}
 			}else if(this.gamestate.combat_state.submode == "win screen"){
-				game.draw.textbox("YOU WIN!", new rectangle(0, 0, 1000, 1000), [0, 0, 0])
+				game.draw.textbox("YOU WIN!", new rectangle(0, 0, 1000, 500), [0, 0, 0]);
+				game.draw.textbox("Rewards!", new rectangle(200, 100, 600, 300));
 			}else if(this.gamestate.combat_state.submode == "lose screen"){
 				game.draw.filled_rect(new rectangle(0, 0, 1000, 1000), [0, 0, 0]);
-				game.draw.textbox("YOU LOSE", new rectangle(0, 0, 1000, 1000), [128, 0, 0]);
+				game.draw.textbox("YOU LOSE", new rectangle(0, 0, 1000, 500), [128, 0, 0]);
+				game.draw.textbox("back to map", new rectangle(200, 100, 600, 300));
+			}
+			if(this.gamestate.combat_state.submode == "win screen" || this.gamestate.combat_state.submode == "lose screen"){
+				game.draw.rect(new rectangle(200, 100, 600, 300), [128, 128, 128]);
 			}
 			
 			if(this.gamestate.combat_state.submode == "target select"){
@@ -196,6 +201,11 @@ game = new jgame(document.getElementById("test-canvas"),
 						this.gamestate.combat_state.queued_move.callback(this.gamestate, targets[t]);
 						this.gamestate.combat_state.turnstep();
 					}
+				}
+			}else if(this.gamestate.combat_state.submode == "win screen" || this.gamestate.combat_state.submode == "lose screen"){
+				if(new rectangle(200, 100, 600, 300).containspoint(x, y)){
+					this.gamestate.reset_combat_state();
+					this.gamestate.mode = "world";
 				}
 			}
 		}

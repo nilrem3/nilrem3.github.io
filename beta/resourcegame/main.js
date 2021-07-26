@@ -1,36 +1,13 @@
 gamestate = {
 	resources: {},
 	recipes: {},
+	actions: {},
 	saveableelements: {}
 }
 
 class saveableelement{
 	constructor(data, id){
 		this.data = data;
-		let getterfunc = function(k){
-			return { get [k](){
-					if(this.data.properties.contains(k)){
-						return this.data[k];
-					}
-					return this[k];
-				}
-			};
-		}
-		let setterfunc = function(k){
-			const kk = k;
-			return {
-				set [kk](val){
-					if(this.data.properties.contains(kk)){
-						this.data[kk] = val;
-					}
-					this[kk] = val;
-				}
-			} 
-		}
-		for(var k in this.data.properties){
-			Object.defineProperty(this, k, getterfunc(k));
-			Object.defineProperty(this, k, setterfunc(k));
-		}
 		this.id = id
 		gamestate.saveableelements[this.id] = this;
 	}
@@ -54,6 +31,7 @@ class recipe extends saveableelement{
 		this.time = time;
 		this.inputs = inputs;
 		this.outputs = outputs;
+		gamestate.recipes[this.name] = this;
 	}
 }
 
@@ -64,6 +42,7 @@ class action extends saveableelement{
 		this.unlockcondition = unlockcondition;
 		this.time = time;
 		this.oncompletion = oncompletion;
+		gamestate.actions[this.name] = this;
 	}
 }
 
@@ -74,11 +53,12 @@ function canafford(cost){
 }
 
 function update_display(){
+	console.log("updating display");
 	html = "";
 	for(const r in gamestate.resources.properties){
-		if(gamestate.resources[r].unlocked == true){
+		if(gamestate.resources[r].data.unlocked == true){
 			newhtml = `<div class="resourcedisplay" style="color:` + gamestate.resources[r].color + `">`;
-			newhtml += gamestate.resources[r].name + " " + gamestate.resources[r].amount + `</div>`;
+			newhtml += gamestate.resources[r].name + " " + gamestate.resources[r].data.amount + `</div>`;
 			html += newhtml;
 			console.log(html);
 		}
@@ -90,13 +70,14 @@ function update_display(){
 function update(){
 	for(const r in gamestate.resources.properties){
 		if(r.unlockcondition(gamestate)){
-			r.unlocked = true;
+			console.log("hi")
+			r.data.unlocked = true;
 		}
 	}
 }
 
-new resource("sticks", function(gamestate){return true;}, "#8a6813")
+new resource("sticks", function(gamestate){console.log("returning true"); return true;}, "#8a6813")
 new resource("logs", function(gamestate){return true;}, "#634b0d")
-new resource("shelters", function(gamestate){return gamestate.resources["shelters"].most > 0;}, "#6e5105")
+new resource("shelters", function(gamestate){return gamestate.resources["shelters"].data.most > 0;}, "#6e5105")
 
-new recipe("build shelter", function(gamestate){return gamestate.resources["sticks"].most >= 15 && gamestate.resources["logs"].most >= 5;}, 10, function(){return {"sticks": 15, "logs": 5}}, function(){return {"shelters": 1}});
+new recipe("build shelter", function(gamestate){return gamestate.resources["sticks"].most >= 15 && gamestate.resources["logs"].data.most >= 5;}, 10, function(){return {"sticks": 15, "logs": 5}}, function(){return {"shelters": 1}});

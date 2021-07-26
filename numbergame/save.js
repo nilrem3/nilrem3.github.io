@@ -268,5 +268,9 @@ function loadFromPastedSave(){
 		console.log(document.getElementById("savebox").value);
 		loaddata(JSON.parse(document.getElementById("savebox").value), game);
 }
+function resetSave(){
+	player = defaultplayer;
+	sacrifice = defaultsacrifice;
+}
 load();
 setInterval(save, 30000);

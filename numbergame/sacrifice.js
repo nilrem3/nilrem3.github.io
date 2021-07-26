@@ -109,3 +109,4 @@ var sacrifice = {
 	}
 }
 sacrifice.maxclickmultupgrade.unlocked = false;
+var defaultsacrifice = sacrifice;
