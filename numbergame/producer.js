@@ -18,7 +18,7 @@ class producer {
 	}
 	get cost(){
 		return new Decimal(Decimal.mul(this.basecost, Decimal.pow(this.scaling, this.bought)));
-	},
+	}
 	get scaling(){
 		return new Decimal(1).plus(this.tier).pow(0.25);//this should make producers and multipliers cost the same at 6/24. need to rebalance other things accordingly
 	}

@@ -1,7 +1,7 @@
 game = new jgame(document.getElementById("test-canvas"), 
 {
 	FPS:50, 
-	TPS:50, 
+	TPS:3, 
 	WIDTH: 1000,
 	HEIGHT: 1000,
 	TITLE: "gacha",
@@ -17,15 +17,102 @@ game = new jgame(document.getElementById("test-canvas"),
 				zone_states: {
 					
 				}
+			},
+			character_data: {
+				selectedcharacters: ["kaiya"]
 			}
 		},
 		mode: "world", //combat, world, menu
+		reset_combat_state: function(){
+			this.combat_state.submode = "move select";
+			this.combat_state.agents = [];
+			this.combat_state.deadagents = []
+		},
 		combat_state: {
-			submode: "moveselect" //moveselect, targetselect, animation
+			submode: "move select", //moveselect, targetselect, animation
+			agents: [],
+			deadagents: [],
+			turnstep: function(){
+				//remove dead agents
+				for(let a = 0; a < this.agents.length; a++){
+					if(this.agents[a].hp <= 0){
+						newagents = this.agents.filter(agent => agent.hp > 0);
+						newlydeceasedagents = this.agents.filter(agent => !newagents.includes(agent))
+						for(let n = 0; n < newlydeceasedagents.length; n++){
+							this.deadagents.push(newlydeceasedagents[n])
+						}
+						this.agents = newagents
+					}
+				}
+				//check if combat is over
+				if(this.agents.length == 0){ //if everyone died, it was a tie
+					game.game.gamestate.mode = "world";
+					game.game.gamestate.reset_combat_state();
+					return
+				}
+				gameover = true
+				for(let a = 0; a < this.agents.length; a++){
+					//if everyone alive is on the same team, there is a clear winner
+					if(this.agents[a].team != this.agents[0].team){
+						gameover = false
+					}
+				}
+				if(gameover){
+					//if there's only one team left
+					if(this.agents[0].team != "player"){
+						this.submode = "lose screen";
+					}else{
+						this.submode = "win screen";
+					}
+					return
+				}
+				//find out which agent is next
+				let anyready = false;
+				for(let a = 0; a < this.agents.length; a++){
+					if(this.agents[a].initiative >= 50){
+						anyready=true;
+						break;
+					}
+				}
+				this.agents.sort(function(a, b){return a.initiative - b.initiative}); //sort by initiative
+				this.agents.reverse(); //bring the highest initiative to the start
+				while(this.current_agent.initiative < 50){
+					for(let a = 0; a < this.agents.length; a++){
+						this.agents[a].initiative += this.agents[a].speed;
+					}
+					this.agents.sort(function(a, b){return a.initiative - b.initiative}); //sort by initiative
+					this.agents.reverse(); //bring the highest initiative to the start
+				}
+				this.current_agent.initiative -= 50;
+				this.submode = "move select";
+			},
+			get current_agent(){
+				return this.agents[0]; //assumes that turnstep has been called correctly after each agent acts.
+			},
+			misc_data: {},
+			queued_move: null
 		}
 	},
 	init: function(){
-		
+		let state = this.gamestate;
+		drawn_buttons.push(new drawn_button(new rectangle(0, 900, 250, 100), 
+					function(state){return state.mode == "combat" && state.combat_state.submode == "move select" && state.combat_state.current_agent.player_controlled == true;}, 
+					function(state){
+						if(state.combat_state.current_agent.basicattack.condition(state)){
+							if(state.combat_state.current_agent.basicattack.requires_target){
+								state.combat_state.queued_move = state.combat_state.current_agent.basicattack;
+								state.combat_state.submode = "target select";
+							}else{
+								state.combat_state.current_agent.basicattack.callback(state);
+								state.combat_state.turnstep();
+							}
+						}
+					}, 
+					function(state){return state.mode == "combat" && state.combat_state.submode == "move select" && state.combat_state.current_agent.player_controlled == true;}, 
+					new rectangle(0, 900, 250, 100),
+					[0, 0, 0],
+					[0, 0, 0],
+					function(state){return "test words";}));
 	},
 	draw: function(){
 		game.draw.clear();
@@ -54,8 +141,24 @@ game = new jgame(document.getElementById("test-canvas"),
 			}
 		}
 		if(this.gamestate.mode == "combat"){
-			if(this.gamestate.combat_state.submode == "targetselect"){
-				
+			if (this.gamestate.combat_state.submode != "win screen" && this.gamestate.combat_state.submode != "lose screen"){
+				for(let a = 0; a < this.gamestate.combat_state.agents.length; a++){
+					game.draw.img(this.gamestate.combat_state.agents[a].icon, 50 * a, 0, 50, 50);
+					game.draw.filled_rect(new rectangle(50 * a, 50, 50 * (this.gamestate.combat_state.agents[a].hp / this.gamestate.combat_state.agents[a].maxhp), 10), [255, 0, 0]);
+					game.draw.rect(new rectangle(50 * a, 50, 50, 10), [0, 0, 0]);
+				}
+			}else if(this.gamestate.combat_state.submode == "win screen"){
+				game.draw.textbox("YOU WIN!", new rectangle(0, 0, 1000, 1000), [0, 0, 0])
+			}else if(this.gamestate.combat_state.submode == "lose screen"){
+				game.draw.filled_rect(new rectangle(0, 0, 1000, 1000), [0, 0, 0]);
+				game.draw.textbox("YOU LOSE", new rectangle(0, 0, 1000, 1000), [128, 0, 0]);
+			}
+			
+			if(this.gamestate.combat_state.submode == "target select"){
+				let targets = get_valid_targets(this.gamestate.combat_state.current_agent, this.gamestate.combat_state.agents, this.gamestate.combat_state.queued_move.cantargetfriendlyagents, this.gamestate.combat_state.queued_move.cantargethostileagents);
+				for(let t = 0; t < targets.length; t++){
+					game.draw.textbox(targets[t].name, new rectangle(0, 60 + (t * 100), 200, 100), [0, 0, 0]);
+				}
 			}
 		}else if(this.gamestate.mode == "world"){
 			let currentzoneid = this.gamestate.persistent_data.world_data.zone;
@@ -74,12 +177,26 @@ game = new jgame(document.getElementById("test-canvas"),
 		}
 	},
 	update: function(){
-		
+		if(this.gamestate.mode == "combat" && this.gamestate.combat_state.current_agent.player_controlled == false && this.gamestate.combat_state.submode != "win screen" && this.gamestate.combat_state.submode != "lose screen"){
+			this.gamestate.combat_state.current_agent.ai(this.gamestate);
+			this.gamestate.combat_state.turnstep();
+		}
 	},
 	onClick: function(x, y){
 		for(let b = 0; b < buttons.length; b++){
 			if(buttons[b].rect.containspoint(x, y) && buttons[b].condition(this.gamestate)){
 				buttons[b].callback(this.gamestate);
+			}
+		}
+		if(this.gamestate.mode == "combat"){
+			if(this.gamestate.combat_state.submode == "target select"){
+				let targets = get_valid_targets(this.gamestate.combat_state.current_agent, this.gamestate.combat_state.agents, this.gamestate.combat_state.queued_move.cantargetfriendlyagents, this.gamestate.combat_state.queued_move.cantargethostileagents);
+				for(let t = 0; t < targets.length; t++){
+					if(new rectangle(0, 60 + (t * 100), 200, 100).containspoint(x, y)){
+						this.gamestate.combat_state.queued_move.callback(this.gamestate, targets[t]);
+						this.gamestate.combat_state.turnstep();
+					}
+				}
 			}
 		}
 	},
@@ -118,7 +235,7 @@ game = new jgame(document.getElementById("test-canvas"),
 			}
 			if(moved){
 				let tile = get_tile_at_location(this.gamestate.persistent_data.world_data.zone, this.gamestate.persistent_data.world_data.position.x, this.gamestate.persistent_data.world_data.position.y);
-				if(tile.type == "trigger"){
+				if(tile.type == "trigger" || tile.type == "combat"){
 					tile.callback();
 				}
 			}
@@ -136,7 +253,17 @@ game_assets = {
 			"floor": true,
 			"empty": false
 		}
-	}
+	},
+	enemy_tables: {
+		
+	},
+	characters: {
+		
+	},
+	moves: {
+		
+	},
+	enemy_ais: {}
 }
 class click_button{
 	constructor(rect, condition, callback){
@@ -222,6 +349,82 @@ class combat_trigger extends trigger{
 		this._type = "combat";
 	}
 }
+
+class combat_agent{
+	constructor(name, atk, def, maxhp, speed, player_controlled, icon, team){
+		this.name = name;
+		this.atk = atk;
+		this.def = def;
+		this.maxhp = maxhp;
+		this.hp = maxhp;
+		this.speed = speed;
+		this.initiative = 0;
+		this.player_controlled = player_controlled;
+		this.icon = icon;
+		this.team = team;
+	}
+}
+
+class player_character{
+	constructor(name, icon, atk, def, maxhp, speed, basicattack, secondaryattack, otherattack, ultimateattack){
+		this.name = name;
+		this.icon = icon;
+		this._atk = atk;
+		this._def = def;
+		this._maxhp = maxhp;
+		this.hp = maxhp;
+		this._speed = speed;
+		this.basicattack = basicattack;
+		this.secondaryattack = secondaryattack;
+		this.otherattack = otherattack;
+		this.ultimateattack = ultimateattack;
+		this.level = 1;
+		game_assets.characters[this.name] = this;
+	}
+	get atk(){
+		return this._atk * ((19 + this.level) / 20);
+	}
+	get def(){
+		return this._def * ((19 + this.level) / 20);
+	}
+	get maxhp(){
+		return this._maxhp * ((19 + this.level) / 20);
+	}
+	get speed(){
+		return this._speed * ((19 + Math.pow(this.level, 1/3)) / 20);
+	}
+}
+
+class player_character_agent extends combat_agent{
+	constructor(character){
+		super(character.name, character.atk, character.def, character.maxhp, character.speed, true, character.icon, "player");
+		this.basicattack = character.basicattack;
+		this.secondaryattack = character.secondaryattack;
+		this.otherattack = character.otherattack;
+		this.ultimateattack = character.ultimateattack;
+		this.hp = character.hp;
+	}
+}
+
+class enemy_agent extends combat_agent{
+	constructor(name, atk, def, maxhp, speed, icon, ai){
+		super(name, atk, def, maxhp, speed, false, icon, "enemies");
+		this.ai = ai;
+	}
+}
+
+class combat_action{
+	constructor(name, condition, callback, requires_target, cantargetfriendlyagents = false, cantargethostileagents = true){
+		this.name = name;
+		this.condition = condition;
+		this.callback = callback;
+		this.requires_target = requires_target;
+		this.cantargetfriendlyagents = cantargetfriendlyagents;
+		this.cantargethostileagents = cantargethostileagents;
+		game_assets.moves[this.name] = this;
+	}
+}
+
 function text_to_tile_dicts(t){
 	var lines = t.toLowerCase().split('|');
 	var longestline = 0;
@@ -255,9 +458,35 @@ function get_tile_at_location(areacode, x, y){
 	}
 	return new map_tile("empty", x, y);
 }
-function start_combat(enemies){
-	
+function start_combat(agents){
+	game.game.gamestate.mode = "combat";
+	game.game.gamestate.combat_state.agents = agents;
+	for(let c = 0; c < game.game.gamestate.persistent_data.character_data.selectedcharacters.length; c++){
+		game.game.gamestate.combat_state.agents.push(new player_character_agent(game_assets.characters[game.game.gamestate.persistent_data.character_data.selectedcharacters[c]]));
+	}
+	for(let a = 0; a < game.game.gamestate.combat_state.agents.length; a++){
+		game.game.gamestate.combat_state.agents[a].initiative = Math.random() * game.game.gamestate.combat_state.agents[a].speed;
+	}
 }
+
+function choice(list){
+	index = Math.floor(Math.random() * list.length);
+	return list[index];
+}
+
+function get_valid_targets(agent, agents, cantargetfriendlyagents, cantargethostileagents){
+	let ret = [];
+	for(let a = 0; a < agents.length; a++){
+		if(agents[a].team == agent.team && cantargetfriendlyagents == true){
+			ret.push(agents[a]);
+		}else if(agents[a].team != agent.team && cantargethostileagents == true){
+			ret.push(agents[a]);
+		}
+	}
+	return ret;
+}
+
+function prepare_map_zones(){
 new map_zone("starting", text_to_tile_dicts("wwwwwwwww|wfffwwwww|wfffffff|wfffwfwwfw|wwwwwfwwfw|eeeewfwwfw|eeeewffffw|eeeewwwwww"), {"wall": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Hadrian%27s_wall_at_Greenhead_Lough.jpg/181px-Hadrian%27s_wall_at_Greenhead_Lough.jpg", 
 																																	"floor": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Parquet_flooring_in_Mus%C3%A9e_des_arts_d%C3%A9coratifs_de_Strasbourg.jpg/174px-Parquet_flooring_in_Mus%C3%A9e_des_arts_d%C3%A9coratifs_de_Strasbourg.jpg", 
 																																	"empty": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Nothing.jpg",
@@ -267,4 +496,42 @@ new map_zone("starting", text_to_tile_dicts("wwwwwwwww|wfffwwwww|wfffffff|wfffwf
 																																	"combat": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Villainc.svg/220px-Villainc.svg.png"});
 game_assets.map_areas["starting"].tiles[8][2] = new door(8, 2);
 game_assets.map_areas["starting"].tiles[8][3] = new trigger(function(){game_assets.map_areas["starting"].tiles[8][2].opened = true;}, 8, 3);
-game_assets.map_areas["starting"].tiles[7][6] = new combat_trigger(function(gamestate){}, 7, 6);
+game_assets.map_areas["starting"].tiles[7][6] = new combat_trigger(function(gamestate){
+	let agents = [];
+	while(Math.random() < 0.5 || agents.length == 0){
+		let newagent = choice(game_assets.enemy_tables["starting"]);
+		agents.push(new enemy_agent(newagent.name, newagent.atk, newagent.def, newagent.maxhp, newagent.speed, newagent.icon, newagent.ai));
+	}
+	return agents;
+}, 7, 6);
+}
+prepare_map_zones();
+
+function prepare_enemy_ais(){
+	game_assets.enemy_ais["basic ai"] = function(state){
+		let targets = get_valid_targets(this, state.combat_state.agents, false, true);
+		let target = choice(targets);
+		target.hp -= 5;
+	}
+}
+prepare_enemy_ais();
+
+function prepare_enemy_tables(){
+	this.game_assets.enemy_tables["starting"] = [];
+	this.game_assets.enemy_tables["starting"].push(new enemy_agent("dog", 5, 5, 50, 5, "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Brooks_Chase_Ranger_of_Jolly_Dogs_Jack_Russell.jpg/87px-Brooks_Chase_Ranger_of_Jolly_Dogs_Jack_Russell.jpg", game_assets.enemy_ais["basic ai"]));
+	this.game_assets.enemy_tables["starting"].push(new enemy_agent("cat", 4, 4, 40, 8, "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Kittyply_edit1.jpg/220px-Kittyply_edit1.jpg", game_assets.enemy_ais["basic ai"]));
+	this.game_assets.enemy_tables["starting"].push(new enemy_agent("hamster", 2, 2, 20, 4.5, "https://upload.wikimedia.org/wikipedia/commons/9/93/Cashew_sable_syrian_hamster.jpg", game_assets.enemy_ais["basic ai"]));
+	this.game_assets.enemy_tables["starting"].push(new enemy_agent("snake", 6, 2, 30, 7, "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Southern_Ringneck_snake%2C_Diadophis_punctatus.jpg/220px-Southern_Ringneck_snake%2C_Diadophis_punctatus.jpg", game_assets.enemy_ais["basic ai"]));
+}
+prepare_enemy_tables();
+
+function prepare_combat_actions(){
+	new combat_action("test basic attack", function(state){return true;}, function(state, target){target.hp -= 5;}, true);
+	new combat_action("test secondary attack", function(state){return true;}, function(state, target){return;}, false);
+}
+prepare_combat_actions();
+
+function prepare_characters(){
+	new player_character("kaiya", "https://img.favpng.com/25/9/9/spearman-s-rank-correlation-coefficient-rise-of-the-kings-wiki-curse-png-favpng-rLr6kZCWSCzvr9pCa7B9Enhej.jpg", 5, 5, 50, 5, game_assets.moves["test basic attack"], game_assets.moves["test secondary attack"], null, null);
+}
+prepare_characters();
