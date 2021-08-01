@@ -1,0 +1,11 @@
+#leftpanel{
+	display: flex;
+	flex-direction: row;
+}
+.columnflex{
+	display: flex;
+	flex-direction: column;
+}
+#leftresourcecountpanel{
+	padding-left: 10px;
+}

@@ -16,6 +16,11 @@ game = new jgame(document.getElementById("test-canvas"),
 				zone: "starting",
 				zone_states: {
 					
+				},
+				respawn_location: {
+					x: 2,
+					y: 2,
+					zone: "starting"
 				}
 			},
 			character_data: {
@@ -91,6 +96,12 @@ game = new jgame(document.getElementById("test-canvas"),
 			},
 			misc_data: {},
 			queued_move: null
+		},
+		loot_display_state{
+			loot_displayed: {
+				gold: 0,
+				items: []
+			}
 		}
 	},
 	init: function(){
@@ -149,14 +160,14 @@ game = new jgame(document.getElementById("test-canvas"),
 				}
 			}else if(this.gamestate.combat_state.submode == "win screen"){
 				game.draw.textbox("YOU WIN!", new rectangle(0, 0, 1000, 500), [0, 0, 0]);
-				game.draw.textbox("Rewards!", new rectangle(200, 100, 600, 300));
+				game.draw.textbox("Rewards!", new rectangle(200, 600, 600, 300));
 			}else if(this.gamestate.combat_state.submode == "lose screen"){
 				game.draw.filled_rect(new rectangle(0, 0, 1000, 1000), [0, 0, 0]);
 				game.draw.textbox("YOU LOSE", new rectangle(0, 0, 1000, 500), [128, 0, 0]);
-				game.draw.textbox("back to map", new rectangle(200, 100, 600, 300));
+				game.draw.textbox("back to map", new rectangle(200, 600, 600, 300));
 			}
 			if(this.gamestate.combat_state.submode == "win screen" || this.gamestate.combat_state.submode == "lose screen"){
-				game.draw.rect(new rectangle(200, 100, 600, 300), [128, 128, 128]);
+				game.draw.rect(new rectangle(200, 600, 600, 300), [128, 128, 128]);
 			}
 			
 			if(this.gamestate.combat_state.submode == "target select"){
@@ -203,9 +214,16 @@ game = new jgame(document.getElementById("test-canvas"),
 					}
 				}
 			}else if(this.gamestate.combat_state.submode == "win screen" || this.gamestate.combat_state.submode == "lose screen"){
-				if(new rectangle(200, 100, 600, 300).containspoint(x, y)){
+				if(new rectangle(200, 600, 600, 300).containspoint(x, y)){
+					if(this.gamestate.combat_state.submode == "lose screen"){
+						this.gamestate.mode = "world";
+						gamestate.persistent_data.world_data.position.x = gamestate.persistent_data.world_data.respawn_location.x;
+						gamestate.persistent_data.world_data.position.y = gamestate.persistent_data.world_data.respawn_location.y;
+						gamestate.persistent_data.world_data.zone = gamestate.persistent_data.world_data.respawn_location.zone;
+					}else{
+						this.gamestate.mode = "loot display";
+					}
 					this.gamestate.reset_combat_state();
-					this.gamestate.mode = "world";
 				}
 			}
 		}
@@ -432,6 +450,20 @@ class combat_action{
 		this.cantargetfriendlyagents = cantargetfriendlyagents;
 		this.cantargethostileagents = cantargethostileagents;
 		game_assets.moves[this.name] = this;
+	}
+}
+
+class enemy{
+	constructor(name, atkfunc, deffunc, hpfunc, speedfunc, icon, ai, xpfunc, goldfunc){
+		this.name = name;
+		this.atkfunc = atkfunc;
+		this.deffunc = deffunc;
+		this.hpfunc = hpfunc;
+		this.speedfunc = speedfunc;
+		this.icon = icon;
+		this.ai = ai;
+		this.xpfunc = xpfunc;
+		this.goldfunc = goldfunc;
 	}
 }
 

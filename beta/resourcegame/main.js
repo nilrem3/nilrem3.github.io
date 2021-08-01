@@ -53,31 +53,49 @@ function canafford(cost){
 }
 
 function update_display(){
-	console.log("updating display");
 	html = "";
-	for(const r in gamestate.resources.properties){
+	counthtml = "";
+	for(const r in gamestate.resources){
 		if(gamestate.resources[r].data.unlocked == true){
+			newcounthtml = `<div class="resourcedisplay" style="color:` + gamestate.resources[r].color + `">`;
+			newcounthtml += gamestate.resources[r].data.amount + `</div>`;
 			newhtml = `<div class="resourcedisplay" style="color:` + gamestate.resources[r].color + `">`;
-			newhtml += gamestate.resources[r].name + " " + gamestate.resources[r].data.amount + `</div>`;
+			newhtml += gamestate.resources[r].name + `</div>`;
 			html += newhtml;
-			console.log(html);
+			counthtml += newcounthtml;
 		}
-		console.log("locked resource");
 	}
 	document.getElementById("leftresourcepanel").innerHTML = html;
+	document.getElementById("leftresourcecountpanel").innerHTML = counthtml;
+	
+	selectorhtml = ""
+	for(const a in gamestate.actions){
+		if(gamestate.actions[a].data.unlocked){
+			selectorhtml += `<option value="` + gamestate.actions[a].name + `">` + gamestate.actions[a].name + `</option>`;
+		}
+	}
+	document.getElementById("actionsselector").innerHTML = selectorhtml;
 }
 
 function update(){
-	for(const r in gamestate.resources.properties){
-		if(r.unlockcondition(gamestate)){
-			console.log("hi")
-			r.data.unlocked = true;
+	for(const r in gamestate.resources){
+		if(gamestate.resources[r].unlockcondition(gamestate)){
+			gamestate.resources[r].data.unlocked = true;
+		}
+	}
+	for(const a in gamestate.actions){
+		if(gamestate.actions[a].unlockcondition(gamestate)){
+			gamestate.actions[a].data.unlocked = true;
 		}
 	}
 }
 
-new resource("sticks", function(gamestate){console.log("returning true"); return true;}, "#8a6813")
+new resource("sticks", function(gamestate){return true;}, "#8a6813")
 new resource("logs", function(gamestate){return true;}, "#634b0d")
 new resource("shelters", function(gamestate){return gamestate.resources["shelters"].data.most > 0;}, "#6e5105")
 
 new recipe("build shelter", function(gamestate){return gamestate.resources["sticks"].most >= 15 && gamestate.resources["logs"].data.most >= 5;}, 10, function(){return {"sticks": 15, "logs": 5}}, function(){return {"shelters": 1}});
+
+new action("gather sticks", function(gamestate){return true}, 5, function(gamestate){gamestate.resources["sticks"].data.amount += 1; if(gamestate.actions["gather sticks"].data.completions % 3 == 0){gamestate.resources["logs"].data.amount += 1;}});
+setInterval(update, 20);
+setInterval(update_display, 50);
