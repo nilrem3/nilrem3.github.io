@@ -46,6 +46,12 @@ function checkupgradeunlocks(){
     if(upgrades["Divide 1"].bought && upgrades["Synergy 1"].bought){
         player.upgrades.unlocked["Divide 2"] = true;
     }
+    if(player.stats["total points"].gte(3600)){
+        player.upgrades.unlocked["Total Point Divider"] = true;
+    }
+    if(player.stats["most points"].gte(600)){
+        player.upgrades.unlocked["Most Point Divider"] = true;
+    }
 }
 
 //usually i think the player will have a divider of like 100 when they unlock upgrades
@@ -54,4 +60,6 @@ new upgrade("Synergy 1", new Decimal(15000), "Divider 1 effect +0.01 per Divider
 new upgrade("Synergy 2", new Decimal(25000), "Divider 2 effect +0.02 per Divider 3 purchased", unlocked=false);
 new upgrade("Synergy 3", new Decimal(200000), "Divider 3 effect +0.03 per Divider 4 purchased", unlocked=false);
 new upgrade("Synergy 4", new Decimal(1000000), "Divider 4 effect +0.04 per Divider 5 purchased", unlocked=false);
-new upgrade("Divide 2", new Decimal(50000), "Divide cost of dividers and upgrades by 2");
+new upgrade("Divide 2", new Decimal(50000), "Divide cost of dividers and upgrades by 2", unlocked=false);
+new upgrade("Total Point Divider", new Decimal(10000000), "Divide cost of dividers by log of total points produced", unlocked=false);
+new upgrade("Most Point Divider", new Decimal(10000000), "Divide cost of dividers by log of most points produced", unlocked=false);

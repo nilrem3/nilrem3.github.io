@@ -12,7 +12,10 @@ function load(){
         player.menusunlocked = loadedsave.menusunlocked;
     }
     if(loadedsave.saveversion >= 0.12){
-        player.upgrades = loadedsave.upgrades;
+        for(const u in loadedsave.upgrades.unlocked){
+            player.upgrades.unlocked[u] = loadedsave.upgrades.unlocked[u];
+            player.upgrades.bought[u] = loadedsave.upgrades.bought[u];
+        }
         player.stats["total points"] = new Decimal(loadedsave.stats["total points"]);
         //console.log(player.stats["total points"] == loadedsave.stats["total points"]);
         player.stats["dividers purchased"] = loadedsave.stats["dividers purchased"]

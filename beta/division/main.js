@@ -58,6 +58,12 @@ function gettotaldividercostdivision(divider){
     if(upgrades["Divide 1"].bought){
         division = division.mul(new Decimal(5));
     }
+    if(upgrades["Total Point Divider"].bought){
+        division = division.mul(player.stats["total points"].log(10)); //yes, this can reduce the divider. but due to the requirement to unlock the upgrade, it will not ever actually do that.
+    }
+    if(upgrades["Most Point Divider"].bought){
+        division = division.mul(player.stats["most points"].log(10)); //yes, this can reduce the divider. but due to the requirement to unlock the upgrade, it will not ever actually do that.
+    }
     return division
 }
 
