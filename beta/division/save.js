@@ -8,6 +8,9 @@ function load(){
         player.points = new Decimal(loadedsave.points);
         player.dividersbought = loadedsave.dividersbought;
     }
-
+    if(loadedsave.saveversion >= 0.11){
+        player.menusunlocked = loadedsave.menusunlocked;
+    }
+    
     drawdividers();
 }

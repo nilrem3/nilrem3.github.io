@@ -2,11 +2,17 @@
 	<head>
 		<meta charset='utf-8'>
 		<link rel='stylesheet' href='style.css'>
+		<title>Division Incremental</title>
 	</head>
 	<body>
 		<div id='game'>
 			<div id='topdisplaybar'>
 
+			</div>
+			<div id="menubuttons">
+				<button onclick="setmenu('dividers')">Dividers</button>
+				<button id="shopbutton" onclick="setmenu('shop')">Shop</button>
+				<button id="changelogbutton" onclick="setmenu('changelog')">Change Log</button>
 			</div>
 			<div id="menus">
 				<div id='dividers' class="menu">
@@ -31,6 +37,9 @@
 		<script src='save.js'></script>
 		<script src='loop.js'></script>
 		<script src='player.js'></script>
+
+		<script src='upgrade.js'></script>
+
 		<script src='main.js'></script>
 	</body>
 </html>

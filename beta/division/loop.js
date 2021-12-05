@@ -5,6 +5,8 @@ function loop(){
     var dt = new Decimal(now - lasttime).div(1000); //divide so it's in seconds not ms
     lasttime = now;
 
+    checkupgradeunlocks();
+
     player.points = player.points.plus(dt);
 }
 
@@ -14,7 +16,10 @@ function draw(){
 
     if(frames % 20 == 0){
         drawdividers();
+        updatemenubuttons();
+        drawupgrades();
     }
+
 }
 
 function drawdividers(){
@@ -26,4 +31,26 @@ function drawdividers(){
         dividerhtml += thisdividerhtml;
     }
     document.getElementById('dividers').innerHTML = dividerhtml;
+}
+
+function updatemenubuttons(){   
+    if(player.menusunlocked["shop"]){
+        document.getElementById("shopbutton").innerHTML = "Shop";
+    }else{
+        document.getElementById("shopbutton").innerHTML = "Cost: " + format(getshopmenucost());
+    }
+}
+
+function drawupgrades(){
+    if(currentmenu != "shop"){
+        return;
+    }
+    upgradehtml = `<div>`
+    for(const upgrade in upgrades){
+        if(upgrades[upgrade].unlocked && (upgrades[upgrade].bought == false)){
+            upgradehtml += `<div class="upgrade"><h3>`+ upgrades[upgrade].name + `</h3>` + upgrades[upgrade].description + `<button onclick="buyupgrade('` + upgrade + `')">Cost: ` + format(upgrades[upgrade].cost) + `</button></div>`;
+        }
+    }
+    upgradehtml += `</div>`
+    document.getElementById("shop").innerHTML = upgradehtml;
 }

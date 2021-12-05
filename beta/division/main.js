@@ -15,7 +15,20 @@ function getdividerbasecost(divider){
 }
 
 function getdividerbaseeffect(divider){
-    return new Decimal(2).pow(divider);
+    var effect = new Decimal(2).pow(divider);
+    if(divider == 0 && upgrades["Synergy 1"].bought){
+        effect = effect.add(new Decimal(0.01).mul(player.dividersbought[1]));
+    }
+    if(divider == 1 && upgrades["Synergy 2"].bought){
+        effect = effect.add(new Decimal(0.02).mul(player.dividersbought[2]));
+    }
+    if(divider == 2 && upgrades["Synergy 3"].bought){
+        effect = effect.add(new Decimal(0.03).mul(player.dividersbought[3]));
+    }
+    if(divider == 3 && upgrades["Synergy 4"].bought){
+        effect = effect.add(new Decimal(0.04).mul(player.dividersbought[4]));
+    }
+    return effect;
 }
 
 function getdividereffect(divider){
@@ -27,7 +40,7 @@ function getdividercost(divider){
     var cost = getdividerbasecost(divider);
     var costmult = getdividerscaling(divider).pow(player.dividersbought[divider]);
     cost = cost.mul(costmult);
-    cost = cost.div(gettotalglobalcostdivision());
+    cost = cost.div(gettotaldividercostdivision());
     return cost
 }
 function gettotalglobalcostdivision(){
@@ -39,7 +52,16 @@ function gettotalglobalcostdivision(){
     return total
 }
 function gettotaldividercostdivision(divider){
-    return gettotalglobalcostdivision();
+    var division = gettotalglobalcostdivision();
+    if(upgrades["Divide 1"].bought){
+        division = division.mul(new Decimal(5));
+    }
+    return division
+}
+
+function gettotalupgradecostdivision(){
+    var division = gettotalglobalcostdivision();
+    return division;
 }
 
 function buydivider(divider)
@@ -55,8 +77,12 @@ function canbuy(divider){
     return player.points.gte(getdividercost(divider));
 }
 
-//setmenu("dividers");
+function getshopmenucost(){
+    return new Decimal(10000).div(gettotalglobalcostdivision());
+}
 
+setmenu("dividers");
+updatemenubuttons();
 setInterval(loop, 50);
 setInterval(draw, 50);
 drawdividers();
