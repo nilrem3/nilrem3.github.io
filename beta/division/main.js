@@ -78,7 +78,7 @@ function canbuy(divider){
 }
 
 function getshopmenucost(){
-    return new Decimal(10000).div(gettotalglobalcostdivision());
+    return new Decimal(5000).div(gettotalglobalcostdivision());
 }
 
 setmenu("dividers");

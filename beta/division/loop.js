@@ -47,8 +47,12 @@ function drawupgrades(){
     }
     upgradehtml = `<div>`
     for(const upgrade in upgrades){
-        if(upgrades[upgrade].unlocked && (upgrades[upgrade].bought == false)){
-            upgradehtml += `<div class="upgrade"><h3>`+ upgrades[upgrade].name + `</h3>` + upgrades[upgrade].description + `<button onclick="buyupgrade('` + upgrade + `')">Cost: ` + format(upgrades[upgrade].cost) + `</button></div>`;
+        if(upgrades[upgrade].unlocked){
+            if(upgrades[upgrade].bought == false){
+                upgradehtml += `<div class="upgrade"><h3>`+ upgrades[upgrade].name + `</h3>` + upgrades[upgrade].description + `<button onclick="buyupgrade('` + upgrade + `')">Cost: ` + format(upgrades[upgrade].cost) + `</button></div>`;
+            }else{
+                upgradehtml += `<div class="upgrade purchasedupgrade"><h3>`+ upgrades[upgrade].name + `</h3>` + upgrades[upgrade].description + `</div>`;
+            }
         }
     }
     upgradehtml += `</div>`
