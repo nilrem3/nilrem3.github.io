@@ -23,7 +23,7 @@ class upgrade{
 }
 
 function buyupgrade(upgrade){
-    console.log(upgrade);
+    //console.log(upgrade);
     if(upgrades[upgrade].unlocked && (upgrades[upgrade].bought == false)){
         if(player.points.gte(upgrades[upgrade].cost)){
             player.points = player.points.sub(upgrades[upgrade].cost);

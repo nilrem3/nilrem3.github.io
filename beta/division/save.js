@@ -14,7 +14,7 @@ function load(){
     if(loadedsave.saveversion >= 0.12){
         player.upgrades = loadedsave.upgrades;
         player.stats["total points"] = new Decimal(loadedsave.stats["total points"]);
-        console.log(player.stats["total points"] == loadedsave.stats["total points"]);
+        //console.log(player.stats["total points"] == loadedsave.stats["total points"]);
         player.stats["dividers purchased"] = loadedsave.stats["dividers purchased"]
         player.stats["most points"] = new Decimal(loadedsave.stats["most points"]);
     }
