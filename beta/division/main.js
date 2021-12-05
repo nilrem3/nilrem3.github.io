@@ -48,7 +48,9 @@ function gettotalglobalcostdivision(){
     for(var d = 0; d < player.dividersbought.length; d++){
         total = total.plus(getdividereffect(d))
     }
-    //console.log(total); not correct
+    if(upgrades["Divide 2"].bought){
+        total = total.mul(2);
+    }
     return total
 }
 function gettotaldividercostdivision(divider){
@@ -69,6 +71,7 @@ function buydivider(divider)
     if(canbuy(divider)){
         player.points = player.points.sub(getdividercost(divider));
         player.dividersbought[divider] += 1;
+        player.stats["dividers purchased"] += 1;
         drawdividers();
     }
 }

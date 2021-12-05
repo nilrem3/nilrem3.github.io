@@ -8,6 +8,10 @@ function loop(){
     checkupgradeunlocks();
 
     player.points = player.points.plus(dt);
+    player.stats["total points"] = player.stats["total points"].plus(dt);
+    if(player.points.gte(player.stats["most points"])){
+        player.stats["most points"] = player.points;
+    }
 }
 
 function draw(){
@@ -18,6 +22,7 @@ function draw(){
         drawdividers();
         updatemenubuttons();
         drawupgrades();
+        drawstats();
     }
 
 }
@@ -57,4 +62,10 @@ function drawupgrades(){
     }
     upgradehtml += `</div>`
     document.getElementById("shop").innerHTML = upgradehtml;
+}
+
+function drawstats(){
+    document.getElementById("totalpointsdiv").innerHTML = "Total Points: " + format(player.stats["total points"]);
+    document.getElementById("dividersboughtdiv").innerHTML = "Dividers Bought: " + player.stats["dividers purchased"];
+    document.getElementById("mostpointsdiv").innerHTML = "Most Points: " + format(player.stats["most points"]);
 }
