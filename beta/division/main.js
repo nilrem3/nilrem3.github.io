@@ -55,7 +55,7 @@ function canbuy(divider){
     return player.points.gte(getdividercost(divider));
 }
 
-setmenu("dividers");
+//setmenu("dividers");
 
 setInterval(loop, 50);
 setInterval(draw, 50);

@@ -4,7 +4,7 @@ function setmenu(menu){
     var menus = document.getElementsByClassName("menu");
     for(let m = 0; m < menus.length; m++){
         if(menus[m].id == menu){
-            menus[m].style["display"] = 'initial';
+            menus[m].style["display"] = 'none';
         }else{
             menus[m].style["display"] = "hidden";
         }
