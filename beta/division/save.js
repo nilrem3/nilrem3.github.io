@@ -14,7 +14,7 @@ function load(){
     if(loadedsave.saveversian > 0.12){
         player.upgrades = loadedsave.upgrades;
         player.stats["total points"] = new Decimal(loadedsave.stats["total points"]);
-        player.stats.dividersbought = loadedsave.stats.dividersbought;
+        player.stats["dividers purchased"] = loadedsave.stats["dividers purchased"]
         player.stats["most points"] = new Decimal(loadedsave.stats["most points"]);
     }
     drawdividers();
