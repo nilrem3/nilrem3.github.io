@@ -23,6 +23,7 @@ function draw(){
         updatemenubuttons();
         drawupgrades();
         drawstats();
+        drawprestigemenu();
     }
 
 }
@@ -44,6 +45,12 @@ function updatemenubuttons(){
     }else{
         document.getElementById("shopbutton").innerHTML = "Cost: " + format(getshopmenucost());
     }
+
+    if(player.menusunlocked["prestige"]){
+        document.getElementById("prestigebutton").innerHTML = "Prestige";
+    }else{
+        document.getElementById("prestigebutton").innerHTML = "Cost: " + format(getprestigemenucost());
+    }
 }
 
 function drawupgrades(){
@@ -61,7 +68,7 @@ function drawupgrades(){
         }
     }
     upgradehtml += `</div>`
-    document.getElementById("shop").innerHTML = upgradehtml;
+    document.getElementById("shopupgrades").innerHTML = upgradehtml;
 }
 
 function drawstats(){

@@ -51,6 +51,7 @@ function gettotalglobalcostdivision(){
     if(upgrades["Divide 2"].bought){
         total = total.mul(2);
     }
+    total = total.mul(getprestigepointfactor().pow(player.prestige.prestigepoints));
     return total
 }
 function gettotaldividercostdivision(divider){
@@ -88,6 +89,10 @@ function canbuy(divider){
 
 function getshopmenucost(){
     return new Decimal(5000).div(gettotalglobalcostdivision());
+}
+
+function getprestigemenucost(){
+    return new Decimal(500000).div(gettotalglobalcostdivision());
 }
 
 setmenu("dividers");

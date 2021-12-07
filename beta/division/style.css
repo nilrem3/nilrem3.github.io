@@ -32,8 +32,15 @@ html{
 }
 .upgrade{
     outline: 2px solid lightblue;
-    width:10%;
+    width:200px;
+    height:150px;
 }
 .purchasedupgrade{
     background-color: blue;
+}
+#shopupgrades{
+    display:flex;
+    flex-flow: row wrap;
+    width:100%;
+    justify-content: flex-start;
 }

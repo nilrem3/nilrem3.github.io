@@ -12,6 +12,7 @@
 			<div id="menubuttons">
 				<button onclick="setmenu('dividers')">Dividers</button>
 				<button id="shopbutton" onclick="setmenu('shop')">Shop</button>
+				<button id="prestigebutton" onclick="setmenu('prestige')">Prestige</button>
 				<button id="changelogbutton" onclick="setmenu('changelog')">Change Log</button>
 				<button id="statsbutton" onclick="setmenu('stats')">Stats</button>
 			</div>
@@ -20,7 +21,16 @@
 				
 				</div>
 				<div id="shop" class="menu">
+					<div id="shopupgrades">
 
+					</div>
+				</div>
+				<div id="prestige" class="menu">
+					<button id="buyprestigebutton" onclick="clickprestigebutton()"></button>
+					<div id="prestigeinfo">
+						<h3 id="prestigecounter">You Have 0 Prestige Points (0 unspent)</h3>
+						<div id="prestigefactorinfo">Each Prestige Point divides costs by 1.5</div>
+					</div>
 				</div>
 				<div id="changelog" class="menu">
 					
@@ -45,6 +55,7 @@
 		<script src='player.js'></script>
 
 		<script src='upgrade.js'></script>
+		<script src='prestige.js'></script>
 
 		<script src='main.js'></script>
 	</body>

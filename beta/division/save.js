@@ -21,5 +21,10 @@ function load(){
         player.stats["dividers purchased"] = loadedsave.stats["dividers purchased"]
         player.stats["most points"] = new Decimal(loadedsave.stats["most points"]);
     }
+    if(loadedsave.saveversion >= 0.2){
+        player.stats["times prestiged"] = loadedsave.stats["times prestiged"]
+        player.prestige.prestigepoints = new Decimal(loadedsave.prestige.prestigepoints);
+        player.prestige.unspentprestigepoints = new Decimal(loadedsave.prestige.unspentprestigepoints);
+    }
     drawdividers();
 }

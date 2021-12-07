@@ -34,24 +34,14 @@ function buyupgrade(upgrade){
 }
 
 function checkupgradeunlocks(){
-    if(upgrades["Synergy 1"].bought){
-        player.upgrades.unlocked["Synergy 2"] = true;
-    }
-    if(upgrades["Synergy 2"].bought){
-        player.upgrades.unlocked["Synergy 3"] = true;
-    }
-    if(upgrades["Synergy 3"].bought){
-        player.upgrades.unlocked["Synergy 4"] = true;
-    }
-    if(upgrades["Divide 1"].bought && upgrades["Synergy 1"].bought){
-        player.upgrades.unlocked["Divide 2"] = true;
-    }
-    if(player.stats["total points"].gte(3600)){
-        player.upgrades.unlocked["Total Point Divider"] = true;
-    }
-    if(player.stats["most points"].gte(600)){
-        player.upgrades.unlocked["Most Point Divider"] = true;
-    }
+    player.upgrades.unlocked["Divide 1"] = true;
+    player.upgrades.unlocked["Synergy 1"] = true;
+    player.upgrades.unlocked["Synergy 2"] = upgrades["Synergy 1"].bought;
+    player.upgrades.unlocked["Synergy 3"] = upgrades["Synergy 2"].bought;
+    player.upgrades.unlocked["Synergy 4"] = upgrades["Synergy 3"].bought;
+    player.upgrades.unlocked["Divide 2"] = upgrades["Divide 1"].bought && upgrades["Synergy 1"].bought;
+    player.upgrades.unlocked["Total Point Divider"] = player.stats["total points"].gte(3600);
+    player.upgrades.unlocked["Most Point Divider"] = player.stats["most points"].gte(600);
 }
 
 //usually i think the player will have a divider of like 100 when they unlock upgrades

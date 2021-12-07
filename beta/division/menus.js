@@ -5,6 +5,9 @@ function setmenu(menu){
         if(menu == "shop" && player.points.gte(getshopmenucost())){
             player.points = player.points.sub(getshopmenucost());
             player.menusunlocked["shop"] = true;
+        }else if(menu == "prestige" && player.points.gte(getprestigemenucost())){
+            player.points = player.points.sub(getprestigemenucost());
+            player.menusunlocked["prestige"] = true;
         }
         updatemenubuttons();
         return;
