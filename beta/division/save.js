@@ -9,7 +9,9 @@ function load(){
         player.dividersbought = loadedsave.dividersbought;
     }
     if(loadedsave.saveversion >= 0.11){
-        player.menusunlocked = loadedsave.menusunlocked;
+        for(const m in loadedsave.menusunlocked){
+            player.menusunlocked[m] = loadedsave.menusunlocked[m];
+        }
     }
     if(loadedsave.saveversion >= 0.12){
         for(const u in loadedsave.upgrades.unlocked){
