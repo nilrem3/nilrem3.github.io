@@ -28,5 +28,8 @@ function load(){
         player.prestige.prestigepoints = new Decimal(loadedsave.prestige.prestigepoints);
         player.prestige.unspentprestigepoints = new Decimal(loadedsave.prestige.unspentprestigepoints);
     }
+    if(loadedsave.saveversion >= 0.21){
+        
+    }
     drawdividers();
 }

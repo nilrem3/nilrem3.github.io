@@ -1,7 +1,7 @@
 player = {
     points: new Decimal(0),
     dividersbought: [0, 0, 0, 0, 0],
-    saveversion: 0.2,
+    saveversion: 0.21,
     menusunlocked: {
         "dividers": true,
         "shop": false,
