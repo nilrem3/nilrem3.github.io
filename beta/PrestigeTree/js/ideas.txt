@@ -1,0 +1,6 @@
+upgrade: boost juice multiplier boost feather gain
+layer: duck nests, based on duck feathers, layer effect gives duck eggs per second, duck eggs are spend on upgrades
+
+layer where each row has 3 upgrades and you can only pick one
+
+duck buyable that makes duck buyables cheaper
