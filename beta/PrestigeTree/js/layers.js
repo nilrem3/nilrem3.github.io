@@ -381,8 +381,6 @@ addLayer("p2", {
             effect(){
                 let effect = Decimal.log(new Decimal(player.timePlayed).add(1), new Decimal(10)).add(1);
 
-                if(hasUpgrade("p3", 16)) effect = effect.pow(upgradeEffect("p3", 16))
-
                 return effect
             },
             effectDisplay(){
@@ -619,7 +617,6 @@ addLayer("m", {
         if(hasUpgrade(this.layer, 11)) mult=mult.div(upgradeEffect(this.layer, 12));
         
         if(hasUpgrade("p3", 13)) mult = mult.div(upgradeEffect("p3", 13));
-        if(hasUpgrade("p3", 16)) mult = mult.div(upgradeEffect("p3", 16));
         
         return mult
     },
@@ -800,13 +797,13 @@ addLayer("p3", {
             }
         },
         16: {
-            description: "Square the effect of the second Prestige 2 upgrade, divide multiplier cost by 2 and unlock the next row of upgrades.",
+            description: "Prestige Points ^0.1 boost point gain, and unlock the next row of upgrades.",
             cost: new Decimal(100),
             effect(){
-                return new Decimal(2);
+                return player["p"].points.add(1).pow(0.1);
             },
             effectDisplay(){
-                return "^" + format(upgradeEffect(this.layer, this.id)) + ",<br> /" + format(upgradeEffect(this.layer, this.id)) 
+                return "x" + format(upgradeEffect(this.layer, this.id))
             }
         },
         21: {

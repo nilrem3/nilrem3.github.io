@@ -4,3 +4,8 @@ layer: duck nests, based on duck feathers, layer effect gives duck eggs per seco
 layer where each row has 3 upgrades and you can only pick one
 
 duck buyable that makes duck buyables cheaper
+
+challenges where u gain some kind of points while in it but u can never actually complete it
+
+fuck i had a good idea for what the p4 layer bonus should be but i forgot
+probably it was feather gain or smth
